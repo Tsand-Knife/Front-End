@@ -1,0 +1,19 @@
+{
+  "Semua Topik": [
+    { "nama": "Ali", "skor": 950 },
+    { "nama": "Budi", "skor": 910 },
+    { "nama": "Citra", "skor": 890 }
+  ],
+  "Matematika": [
+    { "nama": "Dian", "skor": 920 },
+    { "nama": "Eka", "skor": 880 }
+  ],
+  "Bahasa Inggris": [
+    { "nama": "Fajar", "skor": 910 },
+    { "nama": "Gita", "skor": 870 }
+  ],
+  "Fisika": [
+    { "nama": "Hana", "skor": 940 },
+    { "nama": "Ivan", "skor": 900 }
+  ]
+}

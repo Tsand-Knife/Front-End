@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beranda - ThinkEd</title>
+  <link href="css/home.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navbar Start -->
+  <nav class="navbar">
+    <a href="#"
+    class="logo">ThinkEd</a>
+
+    <div class="navbar-nav">
+      <a href="index.html">Materi</a>
+      <a href="#">AI Test</a>
+      <a href="#">Tentang Kami</a>
+    </div>
+    <div class="navbar-extra">
+      <a href="#" class="login-btn">Log In</a>
+      <a href="#" class="signup-btn">Sign Up</a>
+    </div>
+  </nav>
+<!-- Navbar End -->
+ 
+  <!-- <section class="hero">
+    <h1>Selamat Datang di ThinkEd</h1>
+    <p>Platform pembelajaran modern untuk siswa cerdas masa kini.</p>
+    <a href="index.html" class="btn-start">Mulai Belajar</a>
+  </section> -->
+
+<section class="dashboard">
+  <h2>Dashboard Siswa</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Total Kuis</h3>
+      <p id="total-kuis">...</p>
+    </div>
+    <div class="card">
+      <h3>Rata-rata Nilai</h3>
+      <p id="rata-nilai">...</p>
+    </div>
+    <div class="card">
+      <h3>Progres Belajar</h3>
+      <p id="progres-belajar">...</p>
+    </div>
+  </div>
+</section>
+
+<section class="leaderboard">
+  <h2>Leaderboard</h2>
+  <select class="filter-select">
+    <option>Semua Topik</option>
+    <option>Matematika</option>
+    <option>Bahasa Indonesia</option>
+    <option>Bahasa Inggris</option>
+    <option>Biologi</option>
+    <option>Kimia</option>
+    <option>Fisika</option>
+    <option>PKN</option>
+  </select>
+  <table>
+    <thead>
+      <tr><th>Peringkat</th><th>Nama</th><th>Skor</th></tr>
+    </thead>
+    <tbody id="leaderboard-body">
+      <!-- Data akan dimasukkan lewat JavaScript -->
+    </tbody>
+  </table>
+</section>
+
+  <footer class="footer">
+    <p>&copy; 2025 ThinkEd. Semua hak dilindungi.</p>
+  </footer>
+
+  <script src="js/home.js"></script>
+
+</body>
+</html>

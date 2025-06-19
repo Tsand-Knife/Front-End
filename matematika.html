@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Pembelajaran Matematika</title>
+    <link href="css/matematika.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Program Pembelajaran Matematika</h1>
+            <p>Pilih materi matematika yang ingin dipelajari</p>
+        </div>
+
+        <div class="main-content">
+            <div id="main-menu" class="menu-grid">
+                <div class="menu-item" onclick="showContent('aljabar')">
+                    <h3>🔢 Aljabar</h3>
+                    <p>Persamaan, pertidaksamaan, dan manipulasi variabel</p>
+                </div>
+                <div class="menu-item" onclick="showContent('geometri')">
+                    <h3>📐 Geometri</h3>
+                    <p>Bangun datar, bangun ruang, dan pengukuran</p>
+                </div>
+                <div class="menu-item" onclick="showContent('trigonometri')">
+                    <h3>📊 Trigonometri</h3>
+                    <p>Fungsi trigonometri dan aplikasinya</p>
+                </div>
+            </div>
+
+            <div id="content-aljabar" class="content-area">
+                <button class="back-button" onclick="showMainMenu()">← Kembali ke Menu</button>
+                <h2>📘 Materi Aljabar</h2>
+                <ul class="topic-list">
+                    <li class="topic-item" onclick="showDetail('persamaan-linear')">
+                        <h4>Persamaan Linear</h4>
+                        <p>Persamaan satu variabel dan sistem persamaan linear</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('persamaan-kuadrat')">
+                        <h4>Persamaan Kuadrat</h4>
+                        <p>Bentuk ax² + bx + c = 0 dan penyelesaiannya</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('fungsi')">
+                        <h4>Fungsi</h4>
+                        <p>Definisi fungsi, domain, kodomain, dan range</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('polinomial')">
+                        <h4>Polinomial</h4>
+                        <p>Operasi polinomial dan teorema sisa</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="content-geometri" class="content-area">
+                <button class="back-button" onclick="showMainMenu()">← Kembali ke Menu</button>
+                <h2>📐 Materi Geometri</h2>
+                <ul class="topic-list">
+                    <li class="topic-item" onclick="showDetail('bangun-datar')">
+                        <h4>Bangun Datar</h4>
+                        <p>Persegi, persegi panjang, segitiga, lingkaran</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('bangun-ruang')">
+                        <h4>Bangun Ruang</h4>
+                        <p>Kubus, balok, prisma, limas, tabung, kerucut, bola</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('koordinat')">
+                        <h4>Geometri Koordinat</h4>
+                        <p>Sistem koordinat Cartesius dan jarak antar titik</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('transformasi')">
+                        <h4>Transformasi Geometri</h4>
+                        <p>Translasi, rotasi, refleksi, dan dilatasi</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="content-trigonometri" class="content-area">
+                <button class="back-button" onclick="showMainMenu()">← Kembali ke Menu</button>
+                <h2>📊 Materi Trigonometri</h2>
+                <ul class="topic-list">
+                    <li class="topic-item" onclick="showDetail('fungsi-trigonometri')">
+                        <h4>Fungsi Trigonometri</h4>
+                        <p>Sin, cos, tan dan fungsi kebalikannya</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('identitas-trigonometri')">
+                        <h4>Identitas Trigonometri</h4>
+                        <p>Rumus-rumus dasar trigonometri</p>
+                    </li>
+                    <li class="topic-item" onclick="showDetail('aturan-sinus-cosinus')">
+                        <h4>Aturan Sinus dan Cosinus</h4>
+                        <p>Penyelesaian segitiga sembarang</p>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <div id="detail-content" class="content-area">
+                <button class="back-button" onclick="hideDetail()">← Kembali</button>
+                <div id="detail-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/matematika.js"></script>
+
+</body>
+</html>
