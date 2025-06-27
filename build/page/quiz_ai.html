@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz AI - Pengenalan Artificial Intelligence</title>
+    <link href="../asset/css/quiz_ai.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div>
+                <h1>ThinkEd Test</h1>
+            </div>
+            <div>
+                <a href="../page/home.html">Home</a>
+                <a href="../page/materi.html">Materi</a>
+                <a href="../page/quiz.html">Quiz Test</a>
+                <a href="#">Tentang Kami</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="level-selection" id="levelSelection">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h1>🤖 Quiz Pengenalan AI</h1>
+                    <p>Pilih tingkat kesulitan quiz yang sesuai dengan level pengetahuan Anda</p>
+                </div>
+
+                <div class="level-options">
+                    <div class="level-card" onclick="startQuiz('beginner')">
+                        <div class="level-icon">🌱</div>
+                        <h3>Pemula</h3>
+                        <p>Konsep dasar AI, sejarah, dan definisi fundamental</p>
+                        <div class="level-info">
+                            <span class="question-count">10 Pertanyaan</span>
+                            <span class="difficulty easy">Mudah</span>
+                        </div>
+                        <button class="level-btn">Mulai Quiz</button>
+                    </div>
+
+                    <div class="level-card" onclick="startQuiz('intermediate')">
+                        <div class="level-icon">🎯</div>
+                        <h3>Menengah</h3>
+                        <p>Aplikasi AI, algoritma dasar, dan implementasi teknologi</p>
+                        <div class="level-info">
+                            <span class="question-count">15 Pertanyaan</span>
+                            <span class="difficulty medium">Sedang</span>
+                        </div>
+                        <button class="level-btn">Mulai Quiz</button>
+                    </div>
+
+                    <div class="level-card" onclick="startQuiz('advanced')">
+                        <div class="level-icon">🚀</div>
+                        <h3>Lanjutan</h3>
+                        <p>Konsep mendalam, etika AI, dan perkembangan terkini</p>
+                        <div class="level-info">
+                            <span class="question-count">20 Pertanyaan</span>
+                            <span class="difficulty hard">Sulit</span>
+                        </div>
+                        <button class="level-btn">Mulai Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-interface" id="quizInterface" style="display: none;">
+            <div class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="progress-info">
+                        <span class="current-question">Pertanyaan <span id="currentQuestionNumber">1</span></span>
+                        <span class="total-questions">dari <span id="totalQuestions">10</span></span>
+                        <span class="quiz-level" id="quizLevel">Pemula</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h2 class="question-title" id="questionTitle">Apa kepanjangan dari AI?</h2>
+                    <div class="question-options" id="questionOptions">
+                        <div class="option" onclick="selectOption(this, 'A')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Artificial Intelligence</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 'B')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Automated Intelligence</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 'C')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Advanced Intelligence</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 'D')">
+                            <span class="option-letter">D</span>
+                            <span class="option-text">Applied Intelligence</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button class="control-btn secondary" onclick="previousQuestion()" id="prevBtn" disabled>
+                        ← Sebelumnya
+                    </button>
+                    <button class="control-btn primary" onclick="nextQuestion()" id="nextBtn" disabled>
+                        Selanjutnya →
+                    </button>
+                    <button class="control-btn primary" onclick="submitQuiz()" id="submitBtn" style="display: none;">
+                        Selesai Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-results" id="quizResults" style="display: none;">
+            <div class="quiz-container">
+                <div class="results-header">
+                    <div class="results-icon" id="resultsIcon">🎉</div>
+                    <h2 id="resultsTitle">Selamat!</h2>
+                    <p id="resultsSubtitle">Anda telah menyelesaikan quiz</p>
+                </div>
+
+                <div class="results-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="correctAnswers">8</div>
+                        <div class="stat-label">Jawaban Benar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="finalScore">80%</div>
+                        <div class="stat-label">Skor Akhir</div>
+                    </div>
+                    </div>
+
+                <div class="results-feedback" id="resultsFeedback">
+                    <h3>Feedback</h3>
+                    <p>Excellent! Anda memiliki pemahaman yang baik tentang konsep dasar AI.</p>
+                </div>
+
+                <div class="results-actions">
+                    <button class="control-btn secondary" onclick="restartQuiz()">Ulangi Quiz</button>
+                    <button class="control-btn secondary" onclick="backToHome()">Kembali ke Quiz</button>
+                </div>
+
+                <div class="results-review">
+                    <h3>Review Jawaban</h3>
+                    <div class="review-list" id="reviewList">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = {
+            beginner: [
+                {
+                    question: "Apa kepanjangan dari AI?",
+                    options: ["Artificial Intelligence", "Automated Intelligence", "Advanced Intelligence", "Applied Intelligence"],
+                    correct: 0,
+                    explanation: "AI adalah singkatan dari Artificial Intelligence atau Kecerdasan Buatan."
+                },
+                {
+                    question: "Siapa yang pertama kali menggunakan istilah 'Artificial Intelligence'?",
+                    options: ["Alan Turing", "John McCarthy", "Marvin Minsky", "Herbert Simon"],
+                    correct: 1,
+                    explanation: "John McCarthy pertama kali menggunakan istilah 'Artificial Intelligence' pada tahun 1956."
+                },
+                {
+                    question: "Apa tujuan utama dari AI?",
+                    options: ["Menggantikan manusia", "Membuat komputer berpikir seperti manusia", "Meningkatkan kecepatan komputer", "Mengurangi biaya teknologi"],
+                    correct: 1,
+                    explanation: "Tujuan utama AI adalah membuat mesin yang dapat berpikir dan bertindak seperti manusia."
+                },
+                {
+                    question: "Manakah yang BUKAN termasuk aplikasi AI?",
+                    options: ["Chatbot", "Mobil otonom", "Kalkulator sederhana", "Sistem rekomendasi"],
+                    correct: 2,
+                    explanation: "Kalkulator sederhana hanya melakukan operasi matematika dasar, bukan AI."
+                },
+                {
+                    question: "Kapan Kelahiran Artificial Intelligence?",
+                    options: ["1945", "1940", "1956", "1948"],
+                    correct: 2,
+                    explanation: "Dartmouth Summer Research Project on Artificial Intelligence, Di konfersi ini pertama kali Artificial Intelligence digunakan secara formal."
+                },
+                {
+                    question: "Manakah contoh AI yang paling umum digunakan sehari-hari?",
+                    options: ["Robot industri", "Asisten virtual (Siri, Google Assistant)", "Komputer super", "Drone militer"],
+                    correct: 1,
+                    explanation: "Asisten virtual seperti Siri dan Google Assistant adalah contoh AI yang paling umum digunakan dalam kehidupan sehari-hari."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'Turing Test'?",
+                    options: ["Test kecepatan komputer", "Test untuk menguji apakah mesin dapat berpikir", "Test keamanan sistem", "Test kapasitas memori"],
+                    correct: 1,
+                    explanation: "Turing Test adalah metode untuk menguji apakah mesin dapat menunjukkan perilaku cerdas yang setara dengan manusia."
+                },
+                {
+                    question: "Manakah yang merupakan jenis AI berdasarkan kemampuan?",
+                    options: ["Strong AI dan Weak AI", "Fast AI dan Slow AI", "Big AI dan Small AI", "New AI dan Old AI"],
+                    correct: 0,
+                    explanation: "AI dibagi menjadi Strong AI (AGI) yang setara dengan kecerdasan manusia dan Weak AI (ANI) yang terfokus pada tugas spesifik."
+                },
+                {
+                    question: "Apa yang dimaksud dengan Data dalam konteks AI?",
+                    options: ["Natural Language Processing", "New Learning Process", "Network Learning Protocol", "Neural Logic Programming"],
+                    correct: 0,
+                    explanation: "Data adalah bahan bakar yang menggerakkan sistem AI modern. Kualitas, kuantitas, dan relevansi data sangat menentukan performa sistem AI."
+                },
+                {
+                    question: "Manakah yang BUKAN merupakan komponen utama dalam sistem AI?",
+                    options: ["Data", "Algoritma", "Antivirus", "Computing Power"],
+                    correct: 2,
+                    explanation: "Antivirus adalah software keamanan, bukan komponen utama sistem AI. Komponen utama AI adalah data, algoritma, dan daya komputasi."
+                }
+            ],
+            intermediate: [
+                {
+                    question: "Apa perbedaan utama antara Supervised dan Unsupervised Learning?",
+                    options: ["Kecepatan processing", "Ketersediaan label data", "Ukuran dataset", "Jenis algoritma"],
+                    correct: 1,
+                    explanation: "Supervised learning menggunakan data berlabel, sedangkan unsupervised learning menggunakan data tanpa label."
+                },
+                {
+                    question: "Manakah algoritma yang paling cocok untuk klasifikasi gambar?",
+                    options: ["Linear Regression", "Convolutional Neural Network", "Decision Tree", "K-Means"],
+                    correct: 1,
+                    explanation: "CNN sangat efektif untuk mengenali pola visual dalam gambar."
+                },
+                // Pertanyaan tentang Aplikasi AI
+                {
+                    question: "Aplikasi AI manakah yang paling umum digunakan dalam e-commerce?",
+                    options: ["Sistem rekomendasi", "Computer vision", "Speech recognition", "Robotika"],
+                    correct: 0,
+                    explanation: "Sistem rekomendasi membantu pengguna menemukan produk yang relevan berdasarkan preferensi dan perilaku mereka."
+                },
+                {
+                    question: "Dalam bidang kesehatan, AI digunakan untuk diagnosis medis melalui?",
+                    options: ["Analisis citra medis", "Chatbot customer service", "Game development", "Social media analysis"],
+                    correct: 0,
+                    explanation: "AI dapat menganalisis X-ray, MRI, dan CT scan untuk membantu diagnosis yang lebih akurat."
+                },
+                {
+                    question: "Natural Language Processing (NLP) paling banyak diterapkan dalam?",
+                    options: ["Image recognition", "Voice assistant dan chatbot", "Game AI", "Autonomous vehicles"],
+                    correct: 1,
+                    explanation: "NLP memungkinkan komputer memahami dan merespons bahasa manusia dalam aplikasi seperti Siri, Alexa, dan chatbot."
+                },
+                {
+                    question: "Autonomous vehicle menggunakan kombinasi teknologi AI apa?",
+                    options: ["Hanya computer vision", "Computer vision dan sensor fusion", "Hanya machine learning", "Hanya deep learning"],
+                    correct: 1,
+                    explanation: "Mobil otonom membutuhkan computer vision untuk 'melihat' dan sensor fusion untuk memproses data dari berbagai sensor."
+                },
+                {
+                    question: "Dalam industri keuangan, AI fraud detection bekerja dengan cara?",
+                    options: ["Menghapus semua transaksi", "Menganalisis pola transaksi yang mencurigakan", "Memblokir semua kartu kredit", "Mengurangi limit transaksi"],
+                    correct: 1,
+                    explanation: "AI menganalisis pola transaksi historis untuk mengidentifikasi perilaku yang tidak biasa atau mencurigakan."
+                },
+                // Pertanyaan tentang Algoritma Dasar
+                {
+                    question: "Algoritma Decision Tree bekerja berdasarkan prinsip?",
+                    options: ["Pembagian data berdasarkan fitur terbaik", "Perhitungan jarak antar data", "Optimasi fungsi loss", "Clustering data"],
+                    correct: 0,
+                    explanation: "Decision Tree membagi data secara rekursif berdasarkan fitur yang memberikan information gain terbesar."
+                },
+                {
+                    question: "K-Means clustering menggunakan metrik apa untuk mengelompokkan data?",
+                    options: ["Akurasi", "Jarak Euclidean", "Precision", "Recall"],
+                    correct: 1,
+                    explanation: "K-Means mengelompokkan data berdasarkan jarak Euclidean ke centroid cluster terdekat."
+                },
+                {
+                    question: "Random Forest merupakan ensemble method yang menggabungkan?",
+                    options: ["Multiple neural networks", "Multiple decision trees", "Multiple linear regressions", "Multiple clustering algorithms"],
+                    correct: 1,
+                    explanation: "Random Forest menggabungkan prediksi dari banyak decision tree untuk meningkatkan akurasi dan mengurangi overfitting."
+                },
+                {
+                    question: "Support Vector Machine (SVM) bekerja dengan mencari?",
+                    options: ["Titik tengah data", "Hyperplane optimal pemisah kelas", "Cluster terbesar", "Node terdalam"],
+                    correct: 1,
+                    explanation: "SVM mencari hyperplane yang memaksimalkan margin antara kelas-kelas yang berbeda."
+                },
+                {
+                    question: "Gradient Descent adalah algoritma untuk?",
+                    options: ["Klasifikasi data", "Optimasi parameter model", "Clustering data", "Feature selection"],
+                    correct: 1,
+                    explanation: "Gradient Descent mengoptimalkan parameter model dengan meminimalkan fungsi loss secara iteratif."
+                },
+                // Pertanyaan tentang Implementasi Teknologi
+                {
+                    question: "Framework deep learning yang paling populer untuk Python adalah?",
+                    options: ["TensorFlow dan PyTorch", "Java dan C++", "HTML dan CSS", "MySQL dan MongoDB"],
+                    correct: 0,
+                    explanation: "TensorFlow (Google) dan PyTorch (Facebook) adalah framework deep learning paling populer dan powerful."
+                },
+                {
+                    question: "Untuk implementasi AI di edge computing, pertimbangan utama adalah?",
+                    options: ["Kecepatan internet", "Konsumsi daya dan ukuran model", "Jumlah pengguna", "Harga hardware"],
+                    correct: 1,
+                    explanation: "Edge computing membutuhkan model yang efisien dalam hal konsumsi daya dan ukuran untuk dapat berjalan di perangkat dengan resource terbatas."
+                },
+                {
+                    question: "Cloud AI services seperti AWS SageMaker dan Google AI Platform menawarkan?",
+                    options: ["Hanya storage data", "Platform lengkap untuk ML lifecycle", "Hanya visualization tools", "Hanya database management"],
+                    correct: 1,
+                    explanation: "Cloud AI platforms menyediakan tools lengkap dari data preparation, training, deployment, hingga monitoring model ML."
+                },
+            ],
+            advanced: [
+                {
+                    question: "Apa perbedaan utama antara Supervised dan Unsupervised Learning?",
+                    options: ["Kecepatan processing", "Ketersediaan label data", "Ukuran dataset", "Jenis algoritma"],
+                    correct: 1,
+                    explanation: "Supervised learning menggunakan data berlabel, sedangkan unsupervised learning menggunakan data tanpa label."
+                },
+                {
+                    question: "Manakah algoritma yang paling cocok untuk klasifikasi gambar?",
+                    options: ["Linear Regression", "Convolutional Neural Network", "Decision Tree", "K-Means"],
+                    correct: 1,
+                    explanation: "CNN sangat efektif untuk mengenali pola visual dalam gambar."
+                },
+                // Pertanyaan tentang Aplikasi AI
+                {
+                    question: "Aplikasi AI manakah yang paling umum digunakan dalam e-commerce?",
+                    options: ["Sistem rekomendasi", "Computer vision", "Speech recognition", "Robotika"],
+                    correct: 0,
+                    explanation: "Sistem rekomendasi membantu pengguna menemukan produk yang relevan berdasarkan preferensi dan perilaku mereka."
+                },
+                {
+                    question: "Dalam bidang kesehatan, AI digunakan untuk diagnosis medis melalui?",
+                    options: ["Analisis citra medis", "Chatbot customer service", "Game development", "Social media analysis"],
+                    correct: 0,
+                    explanation: "AI dapat menganalisis X-ray, MRI, dan CT scan untuk membantu diagnosis yang lebih akurat."
+                },
+                {
+                    question: "Natural Language Processing (NLP) paling banyak diterapkan dalam?",
+                    options: ["Image recognition", "Voice assistant dan chatbot", "Game AI", "Autonomous vehicles"],
+                    correct: 1,
+                    explanation: "NLP memungkinkan komputer memahami dan merespons bahasa manusia dalam aplikasi seperti Siri, Alexa, dan chatbot."
+                },
+                {
+                    question: "Autonomous vehicle menggunakan kombinasi teknologi AI apa?",
+                    options: ["Hanya computer vision", "Computer vision dan sensor fusion", "Hanya machine learning", "Hanya deep learning"],
+                    correct: 1,
+                    explanation: "Mobil otonom membutuhkan computer vision untuk 'melihat' dan sensor fusion untuk memproses data dari berbagai sensor."
+                },
+                // Pertanyaan tentang Algoritma Dasar
+                {
+                    question: "Algoritma Decision Tree bekerja berdasarkan prinsip?",
+                    options: ["Pembagian data berdasarkan fitur terbaik", "Perhitungan jarak antar data", "Optimasi fungsi loss", "Clustering data"],
+                    correct: 0,
+                    explanation: "Decision Tree membagi data secara rekursif berdasarkan fitur yang memberikan information gain terbesar."
+                },
+                {
+                    question: "K-Means clustering menggunakan metrik apa untuk mengelompokkan data?",
+                    options: ["Akurasi", "Jarak Euclidean", "Precision", "Recall"],
+                    correct: 1,
+                    explanation: "K-Means mengelompokkan data berdasarkan jarak Euclidean ke centroid cluster terdekat."
+                },
+                {
+                    question: "Random Forest merupakan ensemble method yang menggabungkan?",
+                    options: ["Multiple neural networks", "Multiple decision trees", "Multiple linear regressions", "Multiple clustering algorithms"],
+                    correct: 1,
+                    explanation: "Random Forest menggabungkan prediksi dari banyak decision tree untuk meningkatkan akurasi dan mengurangi overfitting."
+                },
+
+                // Pertanyaan tentang Implementasi Teknologi
+                {
+                    question: "Framework deep learning yang paling populer untuk Python adalah?",
+                    options: ["TensorFlow dan PyTorch", "Java dan C++", "HTML dan CSS", "MySQL dan MongoDB"],
+                    correct: 0,
+                    explanation: "TensorFlow (Google) dan PyTorch (Facebook) adalah framework deep learning paling populer dan powerful."
+                },
+                {
+                    question: "Untuk implementasi AI di edge computing, pertimbangan utama adalah?",
+                    options: ["Kecepatan internet", "Konsumsi daya dan ukuran model", "Jumlah pengguna", "Harga hardware"],
+                    correct: 1,
+                    explanation: "Edge computing membutuhkan model yang efisien dalam hal konsumsi daya dan ukuran untuk dapat berjalan di perangkat dengan resource terbatas."
+                },
+                
+                // Pertanyaan Konsep Mendalam
+                {
+                    question: "Apa yang dimaksud dengan 'catastrophic forgetting' dalam neural networks?",
+                    options: ["Model kehilangan semua data", "Model melupakan pengetahuan lama saat belajar tugas baru", "Model tidak bisa belajar", "Model overfitting"],
+                    correct: 1,
+                    explanation: "Catastrophic forgetting terjadi ketika neural network melupakan tugas-tugas yang telah dipelajari sebelumnya saat dilatih untuk tugas baru."
+                },
+                {
+                    question: "Transfer Learning paling efektif digunakan ketika?",
+                    options: ["Dataset target sangat besar", "Dataset target kecil dan mirip dengan dataset sumber", "Dataset target berbeda total", "Tidak pernah efektif"],
+                    correct: 1,
+                    explanation: "Transfer Learning sangat berguna ketika dataset target terbatas namun memiliki kesamaan dengan dataset yang digunakan untuk pre-training."
+                },
+                {
+                    question: "Attention mechanism dalam Transformer architecture berfungsi untuk?",
+                    options: ["Mengurangi ukuran model", "Fokus pada bagian penting dari input sequence", "Mempercepat training", "Mengurangi overfitting"],
+                    correct: 1,
+                    explanation: "Attention mechanism memungkinkan model untuk fokus pada bagian-bagian relevan dari input sequence saat memproses setiap token."
+                },
+                // Pertanyaan Etika AI
+                {
+                    question: "Bias dalam AI dapat terjadi karena?",
+                    options: ["Hardware yang buruk", "Data training yang tidak representatif", "Algoritma yang lambat", "Model yang kecil"],
+                    correct: 1,
+                    explanation: "Bias AI sering berasal dari data training yang tidak representatif atau mengandung bias historis dan sosial."
+                },
+                {
+                    question: "Prinsip 'Fairness' dalam AI ethics bertujuan untuk?",
+                    options: ["Meningkatkan akurasi", "Memastikan perlakuan adil terhadap semua grup", "Mempercepat prediksi", "Mengurangi biaya"],
+                    correct: 1,
+                    explanation: "Fairness memastikan bahwa sistem AI tidak mendiskriminasi kelompok tertentu dan memberikan perlakuan yang adil."
+                },
+                // Pertanyaan Perkembangan Terkini
+                {
+                    question: "Large Language Models (LLMs) seperti GPT-4 menggunakan arsitektur?",
+                    options: ["Convolutional Neural Networks", "Transformer", "Recurrent Neural Networks", "Support Vector Machines"],
+                    correct: 1,
+                    explanation: "LLMs modern seperti GPT series menggunakan arsitektur Transformer yang mengandalkan attention mechanisms."
+                },
+                {
+                    question: "Apa keunggulan utama arsitektur Vision Transformer (ViT) dibanding CNN tradisional?",
+                    options: ["Lebih cepat training", "Dapat menangkap long-range dependencies dalam gambar", "Lebih kecil ukurannya", "Lebih sederhana"],
+                    correct: 1,
+                    explanation: "ViT dapat menangkap hubungan jarak jauh antar bagian gambar melalui self-attention, yang sulit dilakukan CNN tradisional."
+                },
+                {
+                    question: "Multimodal AI seperti CLIP dapat?",
+                    options: ["Hanya memproses teks", "Memahami hubungan antara gambar dan teks", "Hanya memproses gambar", "Hanya klasifikasi"],
+                    correct: 1,
+                    explanation: "CLIP dan model multimodal lainnya dapat memahami dan menghubungkan informasi dari berbagai modalitas seperti teks dan gambar."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'prompt engineering' dalam konteks LLMs?",
+                    options: ["Menulis kode untuk AI", "Merancang input untuk mendapat output optimal", "Mengoptimalkan hardware", "Debugging model"],
+                    correct: 1,
+                    explanation: "Prompt engineering adalah seni merancang input (prompt) yang efektif untuk mendapatkan output yang diinginkan dari language models."
+                },
+            ]
+        };
+
+        // Quiz State
+        let currentLevel = '';
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let selectedAnswer = null;
+        let quizStartTime = null; // Tetap simpan waktu mulai untuk perhitungan lain jika diperlukan, atau bisa juga dihapus sepenuhnya jika tidak ada kebutuhan lain
+
+        // Start Quiz Function
+        function startQuiz(level) {
+            currentLevel = level;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            selectedAnswer = null;
+            quizStartTime = new Date(); // Mencatat waktu mulai kuis
+
+            document.getElementById('levelSelection').style.display = 'none';
+            document.getElementById('quizInterface').style.display = 'block';
+
+            const levelNames = {
+                'beginner': 'Pemula',
+                'intermediate': 'Menengah',
+                'advanced': 'Lanjutan'
+            };
+
+            document.getElementById('quizLevel').textContent = levelNames[level];
+            document.getElementById('totalQuestions').textContent = quizData[level].length;
+
+            loadQuestion();
+        }
+
+        // Load Question
+        function loadQuestion() {
+            const question = quizData[currentLevel][currentQuestionIndex];
+            document.getElementById('questionTitle').textContent = question.question;
+            document.getElementById('currentQuestionNumber').textContent = currentQuestionIndex + 1;
+
+            const optionsContainer = document.getElementById('questionOptions');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectOption(optionDiv, index);
+                optionDiv.innerHTML = `
+                    <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                    <span class="option-text">${option}</span>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            updateProgress();
+            // Re-select previously selected answer if navigating back
+            if (userAnswers[currentQuestionIndex] !== undefined && userAnswers[currentQuestionIndex] !== null) {
+                const previouslySelectedOption = optionsContainer.children[userAnswers[currentQuestionIndex]];
+                if (previouslySelectedOption) {
+                    previouslySelectedOption.classList.add('selected');
+                    selectedAnswer = userAnswers[currentQuestionIndex];
+                }
+            } else {
+                selectedAnswer = null; // No answer selected for this question yet
+            }
+            updateButtons(); // Update button state after loading question and potentially re-selecting an option
+        }
+
+        // Select Option
+        function selectOption(element, answerIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswer = answerIndex;
+            updateButtons(); // Call updateButtons to enable/disable next/submit based on selection
+        }
+
+        // Navigation Functions
+        function nextQuestion() {
+            if (selectedAnswer !== null) {
+                userAnswers[currentQuestionIndex] = selectedAnswer;
+                selectedAnswer = null;
+
+                if (currentQuestionIndex < quizData[currentLevel].length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                } else {
+                    // If it's the last question and an answer is selected, allow submitting
+                    finishQuiz();
+                }
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                selectedAnswer = userAnswers[currentQuestionIndex] || null;
+                loadQuestion();
+            }
+        }
+
+        // Update Progress
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / quizData[currentLevel].length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Update Buttons
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = selectedAnswer === null;
+            document.getElementById('submitBtn').disabled = selectedAnswer === null; // Always disable submit if no answer is selected
+
+            if (currentQuestionIndex === quizData[currentLevel].length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'inline-block';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            if (selectedAnswer !== null) {
+                userAnswers[currentQuestionIndex] = selectedAnswer;
+            }
+            finishQuiz();
+        }
+
+        // Finish Quiz
+        function finishQuiz() {
+
+            document.getElementById('quizInterface').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+
+            calculateResults(); // Panggil tanpa argumen timeSpent
+        }
+
+        // Calculate Results
+        function calculateResults() { // Hapus parameter timeSpent
+            const questions = quizData[currentLevel];
+            let correctCount = 0;
+
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    correctCount++;
+                }
+            });
+
+            const percentage = Math.round((correctCount / questions.length) * 100);
+
+            document.getElementById('correctAnswers').textContent = `${correctCount}/${questions.length}`;
+            document.getElementById('finalScore').textContent = `${percentage}%`;
+            // document.getElementById('timeSpent').textContent = formatTime(timeSpent); // Baris ini dihapus
+
+            // Update results based on performance
+            updateResultsFeedback(percentage);
+            generateReview();
+        }
+
+        // Update Results Feedback
+        function updateResultsFeedback(percentage) {
+            const icon = document.getElementById('resultsIcon');
+            const title = document.getElementById('resultsTitle');
+            const subtitle = document.getElementById('resultsSubtitle');
+            const feedback = document.getElementById('resultsFeedback').querySelector('p');
+
+            if (percentage >= 80) {
+                icon.textContent = '🎉';
+                title.textContent = 'Excellent!';
+                subtitle.textContent = 'Prestasi yang luar biasa!';
+                feedback.textContent = 'Anda memiliki pemahaman yang sangat baik tentang AI. Siap untuk tantangan yang lebih tinggi!';
+            } else if (percentage >= 60) {
+                icon.textContent = '👍';
+                title.textContent = 'Good Job!';
+                subtitle.textContent = 'Hasil yang baik!';
+                feedback.textContent = 'Anda memiliki dasar yang solid. Dengan sedikit latihan lagi, Anda akan mencapai level expert!';
+            } else {
+                icon.textContent = '📚';
+                title.textContent = 'Keep Learning!';
+                subtitle.textContent = 'Jangan menyerah!';
+                feedback.textContent = 'Ini adalah langkah awal yang baik. Mari pelajari lebih dalam tentang konsep-konsep AI.';
+            }
+        }
+
+        // Generate Review
+        function generateReview() {
+            const reviewList = document.getElementById('reviewList');
+            reviewList.innerHTML = '';
+
+            quizData[currentLevel].forEach((question, index) => {
+                const isCorrect = userAnswers[index] === question.correct;
+                const reviewItem = document.createElement('div');
+                reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                reviewItem.innerHTML = `
+                    <div class="review-question">
+                        <span class="review-number">Q${index + 1}</span>
+                        <span class="review-status">${isCorrect ? '✅' : '❌'}</span>
+                    </div>
+                    <div class="review-content">
+                        <p class="review-question-text">${question.question}</p>
+                        <p class="review-answer">
+                            <strong>Jawaban Benar:</strong> ${question.options[question.correct]}
+                        </p>
+                        ${!isCorrect ? `<p class="review-your-answer"><strong>Jawaban Anda:</strong> ${question.options[userAnswers[index]] || 'Tidak dijawab'}</p>` : ''}
+                        <p class="review-explanation">${question.explanation}</p>
+                    </div>
+                `;
+
+                reviewList.appendChild(reviewItem);
+            });
+        }
+
+        // Utility Functions (formatTime now unused but kept if needed for other purposes)
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Action Functions
+        function restartQuiz() {
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('levelSelection').style.display = 'block';
+        }
+
+        function nextLevel() {
+            const levels = ['beginner', 'intermediate', 'advanced'];
+            const currentIndex = levels.indexOf(currentLevel);
+
+            if (currentIndex < levels.length - 1) {
+                startQuiz(levels[currentIndex + 1]);
+            } else {
+                alert('Selamat! Anda telah menyelesaikan semua level quiz AI!');
+                backToHome();
+            }
+        }
+
+        function backToHome() {
+            window.location.href = '../page/quiz.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key >= '1' && e.key <= '4') {
+                    const optionIndex = parseInt(e.key) - 1;
+                    const options = document.querySelectorAll('.option');
+                    if (options[optionIndex]) {
+                        selectOption(options[optionIndex], optionIndex);
+                    }
+                }
+                // Handle Enter key for Next or Submit button
+                if (e.key === 'Enter') {
+                    const nextBtn = document.getElementById('nextBtn');
+                    const submitBtn = document.getElementById('submitBtn');
+
+                    if (nextBtn.style.display !== 'none' && !nextBtn.disabled) {
+                        nextQuestion();
+                    } else if (submitBtn.style.display !== 'none' && !submitBtn.disabled) {
+                        submitQuiz();
+                    }
+                }
+            });
+        });
+    </script>
+    <footer class="footer">
+        <p>&copy; 2025 ThinkEd. Semua hak dilindungi.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning - ThinkEd</title>
+    <link href="../asset/css/machine_learning.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div>
+                <h1>ThinkEd</h1>
+            </div>
+            <div>
+                <a href="../page/home.html">Home</a>
+                <a href="../page/materi.html">Materi</a>
+                <a href="../page/quiz.html">Quiz Test</a>
+                <a href="#">Tentang Kami</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <header>
+                <h1>Machine Learning</h1>
+                <p><em>Panduan Lengkap untuk Memahami dan Menguasai Machine Learning</em></p>
+            </header>
+
+            <section class="toc">
+                <h2>Daftar Isi</h2>
+                <ol>
+                    <li><a href="#definisi-ml">Definisi Machine Learning</a></li>
+                    <li><a href="#jenis-ml">Jenis-jenis Machine Learning</a></li>
+                    <li><a href="#algoritma-ml">Algoritma Machine Learning</a></li>
+                    <li><a href="#proses-ml">Proses Machine Learning</a></li>
+                    <li><a href="#tantangan-ml">Tantangan dalam Machine Learning</a></li>
+                    <li><a href="#evaluasi-ml">Evaluasi Model</a></li>
+                </ol>
+            </section>
+
+            <section id="definisi-ml">
+                <h2>1. Definisi Machine Learning</h2>
+                
+                <h3>Apa itu Machine Learning?</h3>
+                <p>Machine Learning (ML) adalah cabang dari Artificial Intelligence yang memungkinkan komputer untuk belajar dan meningkatkan performanya dalam menjalankan tugas tertentu tanpa diprogram secara eksplisit. ML menggunakan algoritma statistik untuk mengidentifikasi pola dalam data dan membuat prediksi atau keputusan berdasarkan pola tersebut.</p>
+
+                <h3>Definisi dari Para Ahli</h3>
+                <blockquote style="background: #f7fafc; padding: 1.5rem; border-radius: 10px; border-left: 5px solid #667eea; margin: 1rem 0;">
+                    <p><strong>Arthur Samuel (1959):</strong> "Machine Learning adalah bidang studi yang memberikan komputer kemampuan untuk belajar tanpa diprogram secara eksplisit."</p>
+                </blockquote>
+                
+                <blockquote style="background: #f7fafc; padding: 1.5rem; border-radius: 10px; border-left: 5px solid #667eea; margin: 1rem 0;">
+                    <p><strong>Tom Mitchell (1997):</strong> "Program komputer dikatakan belajar dari pengalaman E terhadap tugas T dan ukuran performa P, jika performa P dalam tugas T meningkat dengan pengalaman E."</p>
+                </blockquote>
+
+                <h3>Perbedaan ML dengan Programming Tradisional</h3>
+                <table>
+                    <tr>
+                        <th>Aspek</th>
+                        <th>Programming Tradisional</th>
+                        <th>Machine Learning</th>
+                    </tr>
+                    <tr>
+                        <td>Input</td>
+                        <td>Data + Program</td>
+                        <td>Data + Output yang Diinginkan</td>
+                    </tr>
+                    <tr>
+                        <td>Output</td>
+                        <td>Hasil Eksekusi</td>
+                        <td>Program/Model</td>
+                    </tr>
+                    <tr>
+                        <td>Pendekatan</td>
+                        <td>Rule-based, Deterministik</td>
+                        <td>Pattern-based, Probabilistik</td>
+                    </tr>
+                    <tr>
+                        <td>Adaptasi</td>
+                        <td>Manual update code</td>
+                        <td>Otomatis dari data baru</td>
+                    </tr>
+                </table>
+
+                <h3>Konsep Dasar Machine Learning</h3>
+                <ul>
+                    <li><strong>Training Data:</strong> Dataset yang digunakan untuk melatih model</li>
+                    <li><strong>Features:</strong> Variabel input yang digunakan untuk membuat prediksi</li>
+                    <li><strong>Target/Label:</strong> Output yang ingin diprediksi</li>
+                    <li><strong>Model:</strong> Algoritma yang telah dilatih untuk membuat prediksi</li>
+                    <li><strong>Prediction:</strong> Output yang dihasilkan oleh model</li>
+                    <li><strong>Overfitting:</strong> Model terlalu spesifik pada training data</li>
+                    <li><strong>Underfitting:</strong> Model terlalu sederhana untuk menangkap pola data</li>
+                </ul>
+            </section>
+
+            <section id="jenis-ml">
+                <h2>2. Jenis-jenis Machine Learning</h2>
+                
+                <div class="ml-types-grid">
+                    <div class="ml-type-card supervised">
+                        <h4>🎯 Supervised Learning</h4>
+                        <p><strong>Definisi:</strong> Algoritma belajar dari data yang sudah berlabel (input-output pairs) untuk membuat prediksi pada data baru.</p>
+                        
+                        <h5>Karakteristik:</h5>
+                        <ul>
+                            <li>Memiliki target variable yang jelas</li>
+                            <li>Menggunakan labeled training data</li>
+                            <li>Tujuan: meminimalkan prediction error</li>
+                            <li>Performance dapat diukur dengan akurasi</li>
+                        </ul>
+
+                        <h5>Jenis Supervised Learning:</h5>
+                        <ul>
+                            <li><strong>Classification:</strong> Prediksi kategori/kelas
+                                <ul>
+                                    <li>Binary Classification (2 kelas)</li>
+                                    <li>Multi-class Classification (>2 kelas)</li>
+                                    <li>Multi-label Classification</li>
+                                </ul>
+                            </li>
+                            <li><strong>Regression:</strong> Prediksi nilai numerik kontinu</li>
+                        </ul>
+
+                        <h5>Contoh Aplikasi:</h5>
+                        <ul>
+                            <li>Email spam detection (classification)</li>
+                            <li>Image recognition (classification)</li>
+                            <li>House price prediction (regression)</li>
+                            <li>Stock price forecasting (regression)</li>
+                        </ul>
+                    </div>
+
+                    <div class="ml-type-card unsupervised">
+                        <h4>🔍 Unsupervised Learning</h4>
+                        <p><strong>Definisi:</strong> Algoritma belajar dari data tanpa label untuk menemukan pola tersembunyi atau struktur dalam data.</p>
+                        
+                        <h5>Karakteristik:</h5>
+                        <ul>
+                            <li>Tidak ada target variable</li>
+                            <li>Menggunakan unlabeled data</li>
+                            <li>Tujuan: menemukan struktur tersembunyi</li>
+                            <li>Evaluasi lebih subjektif</li>
+                        </ul>
+
+                        <h5>Jenis Unsupervised Learning:</h5>
+                        <ul>
+                            <li><strong>Clustering:</strong> Mengelompokkan data serupa
+                                <ul>
+                                    <li>K-Means Clustering</li>
+                                    <li>Hierarchical Clustering</li>
+                                    <li>DBSCAN</li>
+                                </ul>
+                            </li>
+                            <li><strong>Dimensionality Reduction:</strong> Mengurangi jumlah features
+                                <ul>
+                                    <li>Principal Component Analysis (PCA)</li>
+                                    <li>t-SNE</li>
+                                    <li>UMAP</li>
+                                </ul>
+                            </li>
+                            <li><strong>Association Rules:</strong> Menemukan hubungan antar item</li>
+                        </ul>
+
+                        <h5>Contoh Aplikasi:</h5>
+                        <ul>
+                            <li>Customer segmentation</li>
+                            <li>Anomaly detection</li>
+                            <li>Market basket analysis</li>
+                            <li>Data compression</li>
+                        </ul>
+                    </div>
+
+                    <div class="ml-type-card reinforcement">
+                        <h4>🎮 Reinforcement Learning</h4>
+                        <p><strong>Definisi:</strong> Agent belajar melalui interaksi dengan environment untuk memaksimalkan reward melalui trial and error.</p>
+                        
+                        <h5>Karakteristik:</h5>
+                        <ul>
+                            <li>Learning through interaction</li>
+                            <li>Reward-based system</li>
+                            <li>Sequential decision making</li>
+                            <li>Balance exploration vs exploitation</li>
+                        </ul>
+
+                        <h5>Komponen Utama:</h5>
+                        <ul>
+                            <li><strong>Agent:</strong> Yang belajar dan membuat keputusan</li>
+                            <li><strong>Environment:</strong> Dunia tempat agent beroperasi</li>
+                            <li><strong>State:</strong> Situasi saat ini</li>
+                            <li><strong>Action:</strong> Tindakan yang dapat diambil</li>
+                            <li><strong>Reward:</strong> Feedback dari environment</li>
+                            <li><strong>Policy:</strong> Strategi agent dalam memilih action</li>
+                        </ul>
+
+                        <h5>Contoh Aplikasi:</h5>
+                        <ul>
+                            <li>Game playing (AlphaGo, Chess)</li>
+                            <li>Autonomous vehicles</li>
+                            <li>Trading algorithms</li>
+                            <li>Robot control</li>
+                            <li>Recommendation systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Semi-Supervised Learning</h3>
+                <p>Kombinasi supervised dan unsupervised learning yang menggunakan sejumlah kecil labeled data dan sejumlah besar unlabeled data. Berguna ketika labeling data mahal atau sulit dilakukan.</p>
+
+                <h3>Self-Supervised Learning</h3>
+                <p>Model belajar dengan membuat label dari data itu sendiri. Contoh: prediksi kata selanjutnya dalam kalimat (seperti pada model bahasa GPT).</p>
+            </section>

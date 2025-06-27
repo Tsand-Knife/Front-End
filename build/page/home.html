@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beranda - ThinkEd</title>
+  <link href="../asset/css/home.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navbar Start -->
+  <nav class="navbar">
+    <a href="#"
+    class="logo">ThinkEd</a>
+
+    <div class="navbar-nav">
+      <a href="../page/home.html">Home</a>
+      <a href="../page/materi.html">Materi</a>
+      <a href="../page/quiz.html">Quiz Test</a>
+      <a href="#">Tentang Kami</a>
+    </div>
+    <div class="navbar-extra">
+      <a href="../login.html" class="login-btn">Log In</a>
+      <a href="../signup.html" class="signup-btn">Sign Up</a>
+    </div>
+  </nav>
+<!-- Navbar End -->
+
+<section class="hero">
+  <div class="hero-background">
+  <img src="../asset/cover-bg.jpg" alt="Ilustrasi Belajar" />
+    <div style="width: 100%; height: 100%; background: linear-gradient(45deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3)); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white;">
+      Ilustrasi Belajar</div>
+    </div>
+    <div class="hero-content">
+      <h1>Selamat Datang di ThinkEd</h1>
+      <p>Platform pembelajaran modern untuk siswa cerdas masa kini.</p>
+      <a href="../page/materi.html" class="btn-start">Mulai Belajar</a>
+    </div>
+</section>                 
+
+<section class="dashboard">
+  <h2>Dashboard Siswa</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Total Kuis</h3>
+      <p id="total-kuis">...</p>
+    </div>
+    <div class="card">
+      <h3>Rata-rata Nilai</h3>
+      <p id="rata-nilai">...</p>
+    </div>
+    <div class="card">
+      <h3>Progres Belajar</h3>
+      <p id="progres-belajar">...</p>
+    </div>
+  </div>
+</section>
+
+<section class="leaderboard">
+  <h2>Leaderboard</h2>
+  <select class="filter-select">
+    <option>Semua Topik</option>
+    <option>Artificial Intelligence</option>
+    <option>Machine Learning</option>
+    <option>Natural Language Processing</option>
+  </select>
+  <table>
+    <thead>
+      <tr><th>Peringkat</th><th>Nama</th><th>Skor</th></tr>
+    </thead>
+    <tbody id="leaderboard-body">
+      <!-- Data akan dimasukkan lewat JavaScript -->
+    </tbody>
+  </table>
+</section>
+
+    <script>
+        // Simple JavaScript for additional interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling effect
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Add loading animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+
+  <footer class="footer">
+    <p>&copy; 2025 ThinkEd. Semua hak dilindungi.</p>
+  </footer>
+
+  <script src="../asset/js/home.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz AI  - Machine Learning</title>
+    <link href="../asset/css/quiz_machine_learning.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div>
+                <h1>ThinkEd Test</h1>
+            </div>
+            <div>
+                <a href="../page/home.html">Home</a>
+                <a href="../page/materi.html">Materi</a>
+                <a href="../page/quiz.html">Quiz Test</a>
+                <a href="#">Tentang Kami</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="level-selection" id="levelSelection">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h1>🤖 Quiz Machine Learning</h1>
+                    <p>Pilih tingkat kesulitan quiz yang sesuai dengan level pengetahuan Anda</p>
+                </div>
+
+                <div class="level-options">
+                    <div class="level-card" onclick="startQuiz('beginner')">
+                        <div class="level-icon">🌱</div>
+                        <h3>Pemula</h3>
+                        <p>Konsep dasar machine learning, definisi supervised dan unsupervised learning, serta pengenalan algoritma umum.</p>
+                        <div class="level-info">
+                            <span class="question-count">10 Pertanyaan</span>
+                            <span class="difficulty easy">Mudah</span>
+                        </div>
+                        <button class="level-btn">Mulai Quiz</button>
+                    </div>
+
+                    <div class="level-card" onclick="startQuiz('intermediate')">
+                        <div class="level-icon">🎯</div>
+                        <h3>Menengah</h3>
+                        <p>Algoritma spesifik, parameter tuning, evaluasi model, dan aplikasi praktis dalam berbagai domain. </p>
+                        <div class="level-info">
+                            <span class="question-count">15 Pertanyaan</span>
+                            <span class="difficulty medium">Sedang</span>
+                        </div>
+                        <button class="level-btn">Mulai Quiz</button>
+                    </div>
+
+                    <div class="level-card" onclick="startQuiz('advanced')">
+                        <div class="level-icon">🚀</div>
+                        <h3>Lanjutan</h3>
+                        <p>Konsep advanced, optimasi, deep learning, ensemble methods, dan implementasi algoritma kompleks.</p>
+                        <div class="level-info">
+                            <span class="question-count">20 Pertanyaan</span>
+                            <span class="difficulty hard">Sulit</span>
+                        </div>
+                        <button class="level-btn">Mulai Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-interface" id="quizInterface" style="display: none;">
+            <div class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="progress-info">
+                        <span class="current-question">Pertanyaan <span id="currentQuestionNumber">1</span></span>
+                        <span class="total-questions">dari <span id="totalQuestions">10</span></span>
+                        <span class="quiz-level" id="quizLevel">Pemula</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h2 class="question-title" id="questionTitle">Apa kepanjangan dari AI?</h2>
+                    <div class="question-options" id="questionOptions">
+                        <div class="option" onclick="selectOption(this, 'A')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Artificial Intelligence</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 'B')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Automated Intelligence</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 'C')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Advanced Intelligence</span>
+                        </div>
+                        <div class="option" onclick="selectOption(this, 'D')">
+                            <span class="option-letter">D</span>
+                            <span class="option-text">Applied Intelligence</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button class="control-btn secondary" onclick="previousQuestion()" id="prevBtn" disabled>
+                        ← Sebelumnya
+                    </button>
+                    <button class="control-btn primary" onclick="nextQuestion()" id="nextBtn" disabled>
+                        Selanjutnya →
+                    </button>
+                    <button class="control-btn primary" onclick="submitQuiz()" id="submitBtn" style="display: none;">
+                        Selesai Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-results" id="quizResults" style="display: none;">
+            <div class="quiz-container">
+                <div class="results-header">
+                    <div class="results-icon" id="resultsIcon">🎉</div>
+                    <h2 id="resultsTitle">Selamat!</h2>
+                    <p id="resultsSubtitle">Anda telah menyelesaikan quiz</p>
+                </div>
+
+                <div class="results-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="correctAnswers">8</div>
+                        <div class="stat-label">Jawaban Benar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="finalScore">80%</div>
+                        <div class="stat-label">Skor Akhir</div>
+                    </div>
+                    </div>
+
+                <div class="results-feedback" id="resultsFeedback">
+                    <h3>Feedback</h3>
+                    <p>Excellent! Anda memiliki pemahaman yang baik tentang konsep dasar AI.</p>
+                </div>
+
+                <div class="results-actions">
+                    <button class="control-btn secondary" onclick="restartQuiz()">Ulangi Quiz</button>
+                    <button class="control-btn secondary" onclick="backToHome()">Kembali ke Quiz</button>
+                </div>
+
+                <div class="results-review">
+                    <h3>Review Jawaban</h3>
+                    <div class="review-list" id="reviewList">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data soal untuk setiap level
+        const quizData = {
+            beginner: [
+                {
+                    question: "Apa yang dimaksud dengan Machine Learning?",
+                    options: [
+                        "Program komputer yang dapat belajar dan meningkatkan performanya dari data tanpa diprogramming secara eksplisit",
+                        "Program komputer yang hanya mengikuti instruksi yang telah ditentukan",
+                        "Sistem yang hanya dapat bekerja dengan data yang sudah diketahui sebelumnya",
+                        "Aplikasi yang memerlukan input manual untuk setiap keputusan"
+                    ],
+                    correct: 0,
+                    explanation: "Machine Learning adalah cabang dari artificial intelligence yang memungkinkan komputer belajar dan membuat keputusan dari data tanpa diprogramming secara eksplisit untuk setiap tugas spesifik."
+                },
+                {
+                    question: "Manakah yang merupakan contoh Supervised Learning?",
+                    options: [
+                        "Clustering pelanggan berdasarkan perilaku belanja",
+                        "Prediksi harga rumah berdasarkan fitur-fitur seperti luas, lokasi, dan usia",
+                        "Pengelompokan artikel berita tanpa label kategori",
+                        "Pencarian pola tersembunyi dalam data penjualan"
+                    ],
+                    correct: 1,
+                    explanation: "Supervised Learning menggunakan data yang sudah berlabel untuk melatih model. Prediksi harga rumah menggunakan fitur-fitur yang sudah diketahui adalah contoh klasik supervised learning."
+                },
+                {
+                    question: "Apa perbedaan utama antara Supervised dan Unsupervised Learning?",
+                    options: [
+                        "Supervised learning lebih cepat daripada unsupervised learning",
+                        "Supervised learning menggunakan data berlabel, unsupervised learning tidak",
+                        "Supervised learning hanya untuk data numerik, unsupervised untuk data kategorikal",
+                        "Supervised learning lebih akurat daripada unsupervised learning"
+                    ],
+                    correct: 1,
+                    explanation: "Perbedaan utama adalah supervised learning menggunakan data yang sudah memiliki label atau target yang diketahui, sedangkan unsupervised learning mencari pola dalam data tanpa label."
+                },
+                {
+                    question: "Algoritma mana yang termasuk dalam kategori Supervised Learning?",
+                    options: [
+                        "K-Means",
+                        "DBSCAN",
+                        "Linear Regression",
+                        "PCA (Principal Component Analysis)"
+                    ],
+                    correct: 2,
+                    explanation: "Linear Regression adalah algoritma supervised learning yang digunakan untuk prediksi nilai kontinu. K-Means, DBSCAN, dan PCA adalah algoritma unsupervised learning."
+                },
+                {
+                    question: "Manakah yang bukan termasuk jenis utama Machine Learning?",
+                    options: [
+                        "Supervised Learning",
+                        "Unsupervised Learning",
+                        "Reinforcement Learning",
+                        "Predictive Learning"
+                    ],
+                    correct: 3,
+                    explanation: "Tiga jenis utama Machine Learning adalah Supervised Learning, Unsupervised Learning, dan Reinforcement Learning. 'Predictive Learning' bukan kategori standar dalam ML."
+                },
+                {
+                    question: "Apa tujuan utama dari algoritma clustering?",
+                    options: [
+                        "Memprediksi nilai masa depan",
+                        "Mengelompokkan data yang serupa ke dalam cluster yang sama",
+                        "Mengklasifikasikan data ke dalam kategori yang sudah ditentukan",
+                        "Mengurangi dimensi data"
+                    ],
+                    correct: 1,
+                    explanation: "Clustering adalah teknik unsupervised learning yang bertujuan mengelompokkan data berdasarkan kesamaan karakteristik tanpa menggunakan label yang sudah ada."
+                },
+                {
+                    question: "Dalam konteks Machine Learning, apa yang dimaksud dengan 'training data'?",
+                    options: [
+                        "Data yang digunakan untuk menguji performa model",
+                        "Data yang digunakan untuk melatih/membangun model",
+                        "Data yang digunakan untuk validasi model",
+                        "Data yang digunakan untuk deployment model"
+                    ],
+                    correct: 1,
+                    explanation: "Training data adalah dataset yang digunakan untuk melatih model machine learning, dimana model belajar pola dan hubungan dari data ini."
+                },
+                {
+                    question: "Aplikasi mana yang paling sesuai untuk Unsupervised Learning?",
+                    options: [
+                        "Deteksi spam email",
+                        "Prediksi cuaca",
+                        "Segmentasi pelanggan untuk strategi pemasaran",
+                        "Diagnosis penyakit berdasarkan gejala"
+                    ],
+                    correct: 2,
+                    explanation: "Segmentasi pelanggan adalah aplikasi klasik unsupervised learning dimana kita mencari pola tersembunyi dalam perilaku pelanggan tanpa label yang sudah ada sebelumnya."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'overfitting' dalam Machine Learning?",
+                    options: [
+                        "Model terlalu sederhana untuk menangkap pola dalam data",
+                        "Model terlalu kompleks dan menghafal training data sehingga performa buruk pada data baru",
+                        "Model memiliki akurasi 100% pada semua data",
+                        "Model tidak dapat dilatih sama sekali"
+                    ],
+                    correct: 1,
+                    explanation: "Overfitting terjadi ketika model terlalu kompleks dan 'menghafal' training data, sehingga performanya buruk pada data baru yang belum pernah dilihat."
+                },
+                {
+                    question: "Manakah yang merupakan contoh aplikasi Classification?",
+                    options: [
+                        "Memprediksi harga saham",
+                        "Menentukan apakah email adalah spam atau bukan spam",
+                        "Memprediksi curah hujan besok",
+                        "Memperkirakan jumlah penjualan produk"
+                    ],
+                    correct: 1,
+                    explanation: "Classification adalah tugas supervised learning untuk memprediksi kategori atau kelas. Menentukan spam/tidak spam adalah contoh klasik binary classification."
+                }
+            ],
+            intermediate: [
+                {
+                    question: "Dalam algoritma K-Means, bagaimana cara menentukan nilai K yang optimal?",
+                    options: [
+                        "Selalu menggunakan K = 3",
+                        "Menggunakan metode Elbow Method atau Silhouette Analysis",
+                        "K sama dengan jumlah fitur dalam dataset",
+                        "K sama dengan jumlah data dibagi 10"
+                    ],
+                    correct: 1,
+                    explanation: "Elbow Method dan Silhouette Analysis adalah teknik yang umum digunakan untuk menentukan nilai K optimal dalam K-Means clustering dengan menganalisis struktur dan kualitas cluster."
+                },
+                {
+                    question: "Apa perbedaan utama antara Decision Tree dan Random Forest?",
+                    options: [
+                        "Decision Tree lebih akurat daripada Random Forest",
+                        "Random Forest menggunakan ensemble dari banyak Decision Tree",
+                        "Decision Tree hanya untuk classification, Random Forest untuk regression",
+                        "Tidak ada perbedaan signifikan"
+                    ],
+                    correct: 1,
+                    explanation: "Random Forest adalah ensemble method yang menggunakan banyak Decision Tree dan mengkombinasikan prediksi mereka, sehingga lebih robust dan mengurangi overfitting dibanding single Decision Tree."
+                },
+                {
+                    question: "Dalam SVM (Support Vector Machine), apa fungsi dari kernel trick?",
+                    options: [
+                        "Mempercepat proses training",
+                        "Mentransformasi data ke dimensi yang lebih tinggi untuk memisahkan data non-linear",
+                        "Mengurangi kompleksitas model",
+                        "Menangani missing values"
+                    ],
+                    correct: 1,
+                    explanation: "Kernel trick memungkinkan SVM untuk menangani data yang tidak linearly separable dengan mentransformasi data ke ruang dimensi yang lebih tinggi tanpa komputasi eksplisit."
+                },
+                {
+                    question: "Metrik evaluasi mana yang paling tepat untuk dataset yang imbalanced?",
+                    options: [
+                        "Accuracy",
+                        "Precision, Recall, dan F1-Score",
+                        "Mean Squared Error",
+                        "R-squared"
+                    ],
+                    correct: 1,
+                    explanation: "Untuk dataset imbalanced, accuracy bisa misleading. Precision, Recall, dan F1-Score memberikan gambaran yang lebih baik tentang performa model pada setiap kelas."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'feature scaling' dan mengapa penting?",
+                    options: [
+                        "Mengurangi jumlah fitur dalam dataset",
+                        "Menormalkan range nilai fitur agar memiliki skala yang sama",
+                        "Menambah fitur baru ke dataset",
+                        "Menghapus fitur yang tidak penting"
+                    ],
+                    correct: 1,
+                    explanation: "Feature scaling penting untuk algoritma yang sensitif terhadap skala seperti SVM, KNN, dan Neural Networks, karena memastikan semua fitur berkontribusi secara seimbang."
+                },
+                {
+                    question: "Dalam algoritma K-NN, bagaimana cara menentukan nilai K yang baik?",
+                    options: [
+                        "K selalu = 1 untuk hasil terbaik",
+                        "K = jumlah kelas dalam dataset",
+                        "Menggunakan cross-validation untuk mencoba berbagai nilai K",
+                        "K = jumlah fitur dalam dataset"
+                    ],
+                    correct: 2,
+                    explanation: "Nilai K optimal biasanya ditentukan melalui cross-validation dengan mencoba berbagai nilai K dan memilih yang memberikan performa validasi terbaik."
+                },
+                {
+                    question: "Apa keuntungan utama dari algoritma Gradient Boosting?",
+                    options: [
+                        "Sangat cepat untuk training dan prediction",
+                        "Tidak memerlukan feature scaling",
+                        "Menggabungkan weak learners secara sequential untuk meningkatkan akurasi",
+                        "Otomatis menangani missing values"
+                    ],
+                    correct: 2,
+                    explanation: "Gradient Boosting membangun model secara sequential dimana setiap model baru belajar dari kesalahan model sebelumnya, menghasilkan ensemble yang sangat powerful."
+                },
+                {
+                    question: "Dalam PCA (Principal Component Analysis), apa yang dimaksud dengan 'explained variance'?",
+                    options: [
+                        "Jumlah data yang dapat dijelaskan oleh model",
+                        "Proporsi variabilitas data yang dipertahankan oleh setiap principal component",
+                        "Tingkat akurasi model setelah dimensionality reduction",
+                        "Jumlah outlier yang terdeteksi"
+                    ],
+                    correct: 1,
+                    explanation: "Explained variance menunjukkan seberapa banyak informasi (variabilitas) dari data original yang dipertahankan oleh setiap principal component setelah dimensionality reduction."
+                },
+                {
+                    question: "Kapan sebaiknya menggunakan Logistic Regression dibanding Linear Regression?",
+                    options: [
+                        "Ketika data memiliki banyak fitur",
+                        "Ketika target variable adalah categorical/binary",
+                        "Ketika data memiliki missing values",
+                        "Ketika dataset sangat besar"
+                    ],
+                    correct: 1,
+                    explanation: "Logistic Regression digunakan untuk classification tasks (target categorical), sedangkan Linear Regression untuk regression tasks (target continuous)."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'regularization' dalam Machine Learning?",
+                    options: [
+                        "Proses membersihkan data dari outlier",
+                        "Teknik untuk mencegah overfitting dengan menambah penalty pada kompleksitas model",
+                        "Metode untuk mempercepat training",
+                        "Cara untuk menangani missing data"
+                    ],
+                    correct: 1,
+                    explanation: "Regularization adalah teknik untuk mencegah overfitting dengan menambahkan penalty term yang menghukum kompleksitas model, seperti L1 (Lasso) dan L2 (Ridge) regularization."
+                },
+                {
+                    question: "Dalam Neural Networks, apa fungsi dari activation function?",
+                    options: [
+                        "Mengurangi jumlah parameter dalam model",
+                        "Memperkenalkan non-linearity ke dalam model",
+                        "Mempercepat proses training",
+                        "Menangani gradient vanishing problem"
+                    ],
+                    correct: 1,
+                    explanation: "Activation function memperkenalkan non-linearity yang memungkinkan neural network untuk mempelajari pola kompleks yang tidak bisa dipelajari dengan transformasi linear saja."
+                },
+                {
+                    question: "Metode ensemble mana yang menggunakan teknik bagging?",
+                    options: [
+                        "AdaBoost",
+                        "Gradient Boosting",
+                        "Random Forest",
+                        "XGBoost"
+                    ],
+                    correct: 2,
+                    explanation: "Random Forest menggunakan bagging (bootstrap aggregating) dimana setiap tree dilatih pada subset data yang berbeda dengan replacement, kemudian hasilnya di-average."
+                },
+                {
+                    question: "Apa perbedaan antara batch gradient descent dan stochastic gradient descent?",
+                    options: [
+                        "Batch gradient descent lebih akurat, stochastic lebih cepat",
+                        "Batch menggunakan seluruh dataset, stochastic menggunakan satu sample per iterasi",
+                        "Batch untuk classification, stochastic untuk regression",
+                        "Tidak ada perbedaan praktis"
+                    ],
+                    correct: 1,
+                    explanation: "Batch gradient descent menggunakan seluruh dataset untuk menghitung gradient, sedangkan stochastic gradient descent menggunakan satu sample per iterasi, membuat SGD lebih cepat tapi lebih noisy."
+                },
+                {
+                    question: "Dalam clustering, apa kelebihan DBSCAN dibanding K-Means?",
+                    options: [
+                        "DBSCAN lebih cepat untuk dataset besar",
+                        "DBSCAN dapat menemukan cluster dengan bentuk arbitrary dan menangani noise/outlier",
+                        "DBSCAN tidak memerlukan parameter apapun",
+                        "DBSCAN selalu menghasilkan cluster yang lebih baik"
+                    ],
+                    correct: 1,
+                    explanation: "DBSCAN dapat menemukan cluster dengan bentuk non-spherical dan secara otomatis mengidentifikasi outlier sebagai noise points, tidak seperti K-Means yang mengasumsikan cluster berbentuk spherical."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'cross-validation' dan mengapa penting?",
+                    options: [
+                        "Metode untuk membersihkan data",
+                        "Teknik untuk mengevaluasi performa model dengan membagi data menjadi train/validation sets secara berulang",
+                        "Cara untuk meningkatkan akurasi model",
+                        "Metode untuk feature selection"
+                    ],
+                    correct: 1,
+                    explanation: "Cross-validation adalah teknik untuk mengevaluasi performa model secara robust dengan membagi data menjadi multiple folds dan menggunakan setiap fold sebagai validation set secara bergiliran."
+                }
+            ],
+            advanced: [
+                {
+                    question: "Dalam Deep Learning, apa yang dimaksud dengan 'gradient vanishing problem'?",
+                    options: [
+                        "Gradient menjadi terlalu besar dan menyebabkan model tidak konvergen",
+                        "Gradient menjadi sangat kecil di layer awal, membuat learning menjadi sangat lambat",
+                        "Gradient tidak dapat dihitung karena fungsi tidak differentiable",
+                        "Gradient berubah tanda secara random selama training"
+                    ],
+                    correct: 1,
+                    explanation: "Gradient vanishing problem terjadi ketika gradient menjadi sangat kecil saat backpropagation melalui banyak layer, terutama di deep networks, membuat layer awal sulit untuk di-update."
+                },
+                {
+                    question: "Apa keunggulan utama dari algoritma XGBoost dibanding Gradient Boosting biasa?",
+                    options: [
+                        "XGBoost lebih mudah diimplementasi",
+                        "XGBoost menggunakan regularization, parallel processing, dan optimized tree construction",
+                        "XGBoost hanya untuk classification tasks",
+                        "XGBoost tidak memerlukan hyperparameter tuning"
+                    ],
+                    correct: 1,
+                    explanation: "XGBoost (Extreme Gradient Boosting) menambahkan regularization terms, parallel processing capabilities, dan optimized tree construction algorithms yang membuatnya lebih efisien dan akurat."
+                },
+                {
+                    question: "Dalam Reinforcement Learning, apa yang dimaksud dengan 'exploration vs exploitation dilemma'?",
+                    options: [
+                        "Memilih antara menggunakan supervised atau unsupervised learning",
+                        "Memilih antara mencoba action baru (exploration) atau menggunakan action terbaik yang diketahui (exploitation)",
+                        "Memilih antara model yang simple atau complex",
+                        "Memilih antara training data yang banyak atau sedikit"
+                    ],
+                    correct: 1,
+                    explanation: "Exploration vs exploitation dilemma adalah trade-off fundamental dalam RL antara mencoba action baru untuk menemukan reward yang lebih baik versus menggunakan action yang sudah terbukti memberikan reward tinggi."
+                },
+                {
+                    question: "Apa perbedaan utama antara Bagging dan Boosting dalam ensemble methods?",
+                    options: [
+                        "Bagging untuk regression, Boosting untuk classification",
+                        "Bagging melatih model secara parallel dan independent, Boosting secara sequential dengan focus pada error",
+                        "Bagging lebih akurat daripada Boosting",
+                        "Tidak ada perbedaan signifikan"
+                    ],
+                    correct: 1,
+                    explanation: "Bagging melatih multiple models secara parallel pada different subsets of data, sedangkan Boosting melatih models secara sequential dimana setiap model belajar dari kesalahan model sebelumnya."
+                },
+                {
+                    question: "Dalam Convolutional Neural Networks (CNN), apa fungsi dari pooling layers?",
+                    options: [
+                        "Meningkatkan jumlah parameter dalam model",
+                        "Mengurangi spatial dimensions dan computational complexity sambil mempertahankan informasi penting",
+                        "Menambah non-linearity ke dalam model",
+                        "Mengatasi overfitting dengan dropout"
+                    ],
+                    correct: 1,
+                    explanation: "Pooling layers mengurangi dimensi spatial dari feature maps, mengurangi computational load, dan memberikan translation invariance sambil mempertahankan informasi penting."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'attention mechanism' dalam Deep Learning?",
+                    options: [
+                        "Teknik untuk mempercepat training neural networks",
+                        "Mekanisme yang memungkinkan model untuk fokus pada bagian input yang paling relevan",
+                        "Metode untuk mengurangi overfitting",
+                        "Cara untuk menangani missing data"
+                    ],
+                    correct: 1,
+                    explanation: "Attention mechanism memungkinkan model untuk memberikan bobot yang berbeda pada bagian input yang berbeda, memungkinkan model untuk 'fokus' pada informasi yang paling relevan untuk task tertentu."
+                },
+                {
+                    question: "Dalam Generative Adversarial Networks (GANs), apa fungsi dari discriminator?",
+                    options: [
+                        "Menghasilkan data sintetik yang realistis",
+                        "Membedakan antara data real dan data yang dihasilkan generator",
+                        "Mengoptimasi loss function dari generator",
+                        "Melakukan preprocessing pada input data"
+                    ],
+                    correct: 1,
+                    explanation: "Discriminator dalam GAN berfungsi sebagai 'critic' yang berusaha membedakan antara data real dan data fake yang dihasilkan generator, menciptakan adversarial training dynamic."
+                },
+                {
+                    question: "Apa keunggulan utama dari Transformer architecture dibanding RNN/LSTM?",
+                    options: [
+                        "Transformer memiliki parameter yang lebih sedikit",
+                        "Transformer dapat diparalelisasi dan menangani long-range dependencies lebih baik",
+                        "Transformer hanya untuk computer vision tasks",
+                        "Transformer tidak memerlukan attention mechanism"
+                    ],
+                    correct: 1,
+                    explanation: "Transformer menggunakan self-attention mechanism yang memungkinkan parallelization dan lebih efektif dalam menangani long-range dependencies dibanding sequential nature dari RNN/LSTM."
+                },
+                {
+                    question: "Dalam unsupervised learning, apa perbedaan antara hard clustering dan soft clustering?",
+                    options: [
+                        "Hard clustering lebih akurat daripada soft clustering",
+                        "Hard clustering memberikan binary membership, soft clustering memberikan probabilistic membership",
+                        "Hard clustering untuk data kontinyu, soft clustering untuk data kategorikal",
+                        "Tidak ada perbedaan praktis"
+                    ],
+                    correct: 1,
+                    explanation: "Hard clustering (seperti K-Means) memberikan setiap point ke satu cluster saja, sedangkan soft clustering (seperti Fuzzy C-Means) memberikan probabilitas membership ke multiple clusters."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'transfer learning' dalam Deep Learning?",
+                    options: [
+                        "Memindahkan data dari satu domain ke domain lain",
+                        "Menggunakan pre-trained model pada satu task sebagai starting point untuk task lain",
+                        "Mengubah architecture neural network selama training",
+                        "Mentransfer gradient dari satu layer ke layer lain"
+                    ],
+                    correct: 1,
+                    explanation: "Transfer learning memanfaatkan knowledge yang sudah dipelajari dari satu task (biasanya dengan dataset besar) untuk membantu learning pada task baru yang terkait, terutama berguna ketika data terbatas."
+                },
+                {
+                    question: "Dalam optimization untuk deep learning, mengapa Adam optimizer populer?",
+                    options: [
+                        "Adam adalah optimizer yang paling cepat",
+                        "Adam mengkombinasikan keunggulan momentum dan adaptive learning rates",
+                        "Adam tidak memerlukan hyperparameter tuning",
+                        "Adam dapat mengatasi semua masalah optimization"
+                    ],
+                    correct: 1,
+                    explanation: "Adam optimizer mengkombinasikan momentum (untuk mempercepat konvergensi) dengan adaptive learning rates (seperti RMSprop), memberikan performa yang robust pada berbagai jenis problems."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'batch normalization' dan mengapa berguna?",
+                    options: [
+                        "Teknik untuk memproses data dalam batches",
+                        "Normalisasi input setiap layer untuk mempercepat training dan stabilitas",
+                        "Metode untuk mengurangi ukuran batch",
+                        "Cara untuk menangani imbalanced datasets"
+                    ],
+                    correct: 1,
+                    explanation: "Batch normalization menormalkan input ke setiap layer, mengurangi internal covariate shift, memungkinkan learning rate yang lebih tinggi, dan bertindak sebagai regularizer."
+                },
+                {
+                    question: "Dalam anomaly detection, apa keunggulan One-Class SVM?",
+                    options: [
+                        "Dapat mendeteksi anomaly dengan akurasi 100%",
+                        "Dapat belajar decision boundary dari data normal saja tanpa memerlukan anomaly examples",
+                        "Lebih cepat daripada semua metod anomaly detection lain",
+                        "Tidak memerlukan parameter tuning"
+                    ],
+                    correct: 1,
+                    explanation: "One-Class SVM dapat membangun model dari data normal saja dan mendeteksi anomalies sebagai points yang berada di luar boundary yang dipelajari, berguna ketika anomaly examples langka atau tidak tersedia."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'feature embedding' dalam context of deep learning?",
+                    options: [
+                        "Menghapus features yang tidak penting",
+                        "Mengkonversi categorical/discrete features menjadi dense vector representations",
+                        "Menggabungkan multiple features menjadi satu",
+                        "Membuat features baru dari features yang ada"
+                    ],
+                    correct: 1,
+                    explanation: "Feature embedding mengkonversi high-dimensional sparse categorical data menjadi lower-dimensional dense vectors yang dapat menangkap semantic relationships antar categories."
+                },
+                {
+                    question: "Dalam Reinforcement Learning, apa perbedaan utama antara on-policy dan off-policy methods?",
+                    options: [
+                        "On-policy lebih akurat daripada off-policy",
+                        "On-policy belajar dari policy yang sedang digunakan, off-policy dapat belajar dari data yang dikumpulkan policy lain",
+                        "On-policy untuk discrete actions, off-policy untuk continuous actions",
+                        "Tidak ada perbedaan praktis"
+                    ],
+                    correct: 1,
+                    explanation: "On-policy methods (seperti SARSA) belajar tentang policy yang sedang digunakan untuk memilih actions, sedangkan off-policy methods (seperti Q-learning) dapat belajar optimal policy dari data yang dikumpulkan policy lain."
+                },
+                {
+                    question: "Apa keunggulan utama dari Variational Autoencoders (VAE) dibanding standard Autoencoders?",
+                    options: [
+                        "VAE lebih cepat untuk training",
+                        "VAE dapat menghasilkan data baru dengan sampling dari learned latent space",
+                        "VAE memiliki reconstruction error yang lebih rendah",
+                        "VAE memerlukan data training yang lebih sedikit"
+                    ],
+                    correct: 1,
+                    explanation: "VAE belajar probabilistic latent representation yang memungkinkan generation of new data points dengan sampling dari learned distribution, tidak seperti deterministic standard autoencoder."
+                },
+                {
+                    question: "Dalam multi-class classification dengan imbalanced data, strategi mana yang paling efektif?",
+                    options: [
+                        "Selalu menggunakan accuracy sebagai metrik",
+                        "Kombinasi teknik sampling (SMOTE), class weights, dan ensemble methods",
+                        "Menghapus kelas minority dari dataset",
+                        "Menggunakan model yang lebih complex"
+                    ],
+                    correct: 1,
+                    explanation: "Untuk imbalanced multi-class problems, kombinasi teknik resampling seperti SMOTE, penggunaan class weights, dan ensemble methods biasanya memberikan hasil terbaik."
+                },
+                {
+                    question: "Apa yang dimaksud dengan 'catastrophic forgetting' dalam continual learning?",
+                    options: [
+                        "Model mengalami overfitting yang parah",
+                        "Model melupakan knowledge dari task sebelumnya ketika belajar task baru",
+                        "Model tidak dapat belajar task baru sama sekali",
+                        "Model mengalami gradient explosion"
+                    ],
+                    correct: 1,
+                    explanation: "Catastrophic forgetting terjadi ketika neural network melupakan knowledge yang sudah dipelajari dari task sebelumnya saat dilatih pada task baru, menjadi tantangan utama dalam continual learning."
+                },
+                {
+                    question: "Dalam Graph Neural Networks, apa fungsi utama dari message passing?",
+                    options: [
+                        "Mengurangi kompleksitas computational graph",
+                        "Memungkinkan nodes untuk mengumpulkan dan mengintegrasikan informasi dari neighboring nodes",
+                        "Mengkonversi graph menjadi tree structure",
+                        "Melakukan graph compression"
+                    ],
+                    correct: 1,
+                    explanation: "Message passing adalah mekanisme fundamental dalam GNNs dimana setiap node mengumpulkan informasi dari neighbor nodes-nya dan mengupdate representasinya berdasarkan informasi agregat tersebut."
+                },
+                {
+                    question: "Apa keunggulan utama dari menggunakan Bayesian Neural Networks?",
+                    options: [
+                        "Selalu lebih akurat daripada standard neural networks",
+                        "Dapat memberikan uncertainty estimates untuk predictions",
+                        "Lebih cepat untuk training dan inference",
+                        "Tidak memerlukan large datasets"
+                    ],
+                    correct: 1,
+                    explanation: "Bayesian Neural Networks dapat memberikan uncertainty estimates dengan memodelkan distributions over weights, memberikan informasi tentang confidence dari predictions yang sangat berguna untuk decision making."
+                }
+            ]
+        };
+
+        // Quiz State
+        let currentLevel = '';
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let selectedAnswer = null;
+        let quizStartTime = null; // Tetap simpan waktu mulai untuk perhitungan lain jika diperlukan, atau bisa juga dihapus sepenuhnya jika tidak ada kebutuhan lain
+
+        // Start Quiz Function
+        function startQuiz(level) {
+            currentLevel = level;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            selectedAnswer = null;
+            quizStartTime = new Date(); // Mencatat waktu mulai kuis
+
+            document.getElementById('levelSelection').style.display = 'none';
+            document.getElementById('quizInterface').style.display = 'block';
+
+            const levelNames = {
+                'beginner': 'Pemula',
+                'intermediate': 'Menengah',
+                'advanced': 'Lanjutan'
+            };
+
+            document.getElementById('quizLevel').textContent = levelNames[level];
+            document.getElementById('totalQuestions').textContent = quizData[level].length;
+
+            loadQuestion();
+        }
+
+        // Load Question
+        function loadQuestion() {
+            const question = quizData[currentLevel][currentQuestionIndex];
+            document.getElementById('questionTitle').textContent = question.question;
+            document.getElementById('currentQuestionNumber').textContent = currentQuestionIndex + 1;
+
+            const optionsContainer = document.getElementById('questionOptions');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectOption(optionDiv, index);
+                optionDiv.innerHTML = `
+                    <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                    <span class="option-text">${option}</span>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            updateProgress();
+            // Re-select previously selected answer if navigating back
+            if (userAnswers[currentQuestionIndex] !== undefined && userAnswers[currentQuestionIndex] !== null) {
+                const previouslySelectedOption = optionsContainer.children[userAnswers[currentQuestionIndex]];
+                if (previouslySelectedOption) {
+                    previouslySelectedOption.classList.add('selected');
+                    selectedAnswer = userAnswers[currentQuestionIndex];
+                }
+            } else {
+                selectedAnswer = null; // No answer selected for this question yet
+            }
+            updateButtons(); // Update button state after loading question and potentially re-selecting an option
+        }
+
+        // Select Option
+        function selectOption(element, answerIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAnswer = answerIndex;
+            updateButtons(); // Call updateButtons to enable/disable next/submit based on selection
+        }
+
+        // Navigation Functions
+        function nextQuestion() {
+            if (selectedAnswer !== null) {
+                userAnswers[currentQuestionIndex] = selectedAnswer;
+                selectedAnswer = null;
+
+                if (currentQuestionIndex < quizData[currentLevel].length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                } else {
+                    // If it's the last question and an answer is selected, allow submitting
+                    finishQuiz();
+                }
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                selectedAnswer = userAnswers[currentQuestionIndex] || null;
+                loadQuestion();
+            }
+        }
+
+        // Update Progress
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / quizData[currentLevel].length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Update Buttons
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = selectedAnswer === null;
+            document.getElementById('submitBtn').disabled = selectedAnswer === null; // Always disable submit if no answer is selected
+
+            if (currentQuestionIndex === quizData[currentLevel].length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'inline-block';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            if (selectedAnswer !== null) {
+                userAnswers[currentQuestionIndex] = selectedAnswer;
+            }
+            finishQuiz();
+        }
+
+        // Finish Quiz
+        function finishQuiz() {
+
+            document.getElementById('quizInterface').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+
+            calculateResults(); // Panggil tanpa argumen timeSpent
+        }
+
+        // Calculate Results
+        function calculateResults() { // Hapus parameter timeSpent
+            const questions = quizData[currentLevel];
+            let correctCount = 0;
+
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    correctCount++;
+                }
+            });
+
+            const percentage = Math.round((correctCount / questions.length) * 100);
+
+            document.getElementById('correctAnswers').textContent = `${correctCount}/${questions.length}`;
+            document.getElementById('finalScore').textContent = `${percentage}%`;
+            // document.getElementById('timeSpent').textContent = formatTime(timeSpent); // Baris ini dihapus
+
+            // Update results based on performance
+            updateResultsFeedback(percentage);
+            generateReview();
+        }
+
+        // Update Results Feedback
+        function updateResultsFeedback(percentage) {
+            const icon = document.getElementById('resultsIcon');
+            const title = document.getElementById('resultsTitle');
+            const subtitle = document.getElementById('resultsSubtitle');
+            const feedback = document.getElementById('resultsFeedback').querySelector('p');
+
+            if (percentage >= 80) {
+                icon.textContent = '🎉';
+                title.textContent = 'Excellent!';
+                subtitle.textContent = 'Prestasi yang luar biasa!';
+                feedback.textContent = 'Anda memiliki pemahaman yang sangat baik tentang AI. Siap untuk tantangan yang lebih tinggi!';
+            } else if (percentage >= 60) {
+                icon.textContent = '👍';
+                title.textContent = 'Good Job!';
+                subtitle.textContent = 'Hasil yang baik!';
+                feedback.textContent = 'Anda memiliki dasar yang solid. Dengan sedikit latihan lagi, Anda akan mencapai level expert!';
+            } else {
+                icon.textContent = '📚';
+                title.textContent = 'Keep Learning!';
+                subtitle.textContent = 'Jangan menyerah!';
+                feedback.textContent = 'Ini adalah langkah awal yang baik. Mari pelajari lebih dalam tentang konsep-konsep AI.';
+            }
+        }
+
+        // Generate Review
+        function generateReview() {
+            const reviewList = document.getElementById('reviewList');
+            reviewList.innerHTML = '';
+
+            quizData[currentLevel].forEach((question, index) => {
+                const isCorrect = userAnswers[index] === question.correct;
+                const reviewItem = document.createElement('div');
+                reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                reviewItem.innerHTML = `
+                    <div class="review-question">
+                        <span class="review-number">Q${index + 1}</span>
+                        <span class="review-status">${isCorrect ? '✅' : '❌'}</span>
+                    </div>
+                    <div class="review-content">
+                        <p class="review-question-text">${question.question}</p>
+                        <p class="review-answer">
+                            <strong>Jawaban Benar:</strong> ${question.options[question.correct]}
+                        </p>
+                        ${!isCorrect ? `<p class="review-your-answer"><strong>Jawaban Anda:</strong> ${question.options[userAnswers[index]] || 'Tidak dijawab'}</p>` : ''}
+                        <p class="review-explanation">${question.explanation}</p>
+                    </div>
+                `;
+
+                reviewList.appendChild(reviewItem);
+            });
+        }
+
+        // Utility Functions (formatTime now unused but kept if needed for other purposes)
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Action Functions
+        function restartQuiz() {
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('levelSelection').style.display = 'block';
+        }
+
+        function nextLevel() {
+            const levels = ['beginner', 'intermediate', 'advanced'];
+            const currentIndex = levels.indexOf(currentLevel);
+
+            if (currentIndex < levels.length - 1) {
+                startQuiz(levels[currentIndex + 1]);
+            } else {
+                alert('Selamat! Anda telah menyelesaikan semua level quiz AI!');
+                backToHome();
+            }
+        }
+
+        function backToHome() {
+            window.location.href = '../page/quiz.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key >= '1' && e.key <= '4') {
+                    const optionIndex = parseInt(e.key) - 1;
+                    const options = document.querySelectorAll('.option');
+                    if (options[optionIndex]) {
+                        selectOption(options[optionIndex], optionIndex);
+                    }
+                }
+                // Handle Enter key for Next or Submit button
+                if (e.key === 'Enter') {
+                    const nextBtn = document.getElementById('nextBtn');
+                    const submitBtn = document.getElementById('submitBtn');
+
+                    if (nextBtn.style.display !== 'none' && !nextBtn.disabled) {
+                        nextQuestion();
+                    } else if (submitBtn.style.display !== 'none' && !submitBtn.disabled) {
+                        submitQuiz();
+                    }
+                }
+            });
+        });
+    </script>
+    <footer class="footer">
+        <p>&copy; 2025 ThinkEd. Semua hak dilindungi.</p>
+    </footer>
+</body>
+</html>

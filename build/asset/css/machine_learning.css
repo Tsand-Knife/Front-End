@@ -1,0 +1,812 @@
+/* Reset dan Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+nav h1 {
+    color: #667eea;
+    font-size: 2em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+nav div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  width: auto;
+  gap: 50px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+nav a:hover::before {
+    left: 0;
+}
+
+nav a:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Article Header */
+article > header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+article > header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+article > header h1 {
+    font-size: clamp(2.5em, 5vw, 3.5em);
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    font-weight: 700;
+}
+
+article > header p {
+    font-size: clamp(1em, 2.5vw, 1.3em);
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+}
+
+/* Table of Contents */
+section:first-of-type {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 15px;
+    margin: 20px;
+    padding: 30px;
+}
+
+section:first-of-type h2 {
+    font-size: 30px;
+    color: #667eea;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+section:first-of-type ol {
+    max-width: 900px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+section:first-of-type ol li {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+section:first-of-type ol li::before {
+    content: counter(list-item, decimal-leading-zero);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #8B7ED8, #B794F6);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 4px 15px rgba(139, 126, 216, 0.3);
+}
+
+section:first-of-type ol li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(139, 126, 216, 0.3);
+}
+
+section:first-of-type ol li:hover::before {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(139, 126, 216, 0.4);
+}
+
+section:first-of-type ol li a {
+    display: block;
+    padding: 20px 20px 20px 85px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1em;
+    position: relative;
+    z-index: 1;
+}
+
+section:first-of-type ol li a:hover {
+    color: #8B7ED8;
+}
+@keyframes slideIn {
+    from { width: 0; }
+    to { width: 80px; }
+}
+
+/* General Section Styles */
+section {
+    padding: 50px 40px;
+    border-bottom: 1px solid #ffffff;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInSlideUp 0.8s ease forwards;
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+section h2 {
+    position: relative;
+    color: #333f;
+    font-size: clamp(1.8em, 4vw, 2.5em);
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    font-weight: 600;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 2px;
+    animation: slideIn 1s ease forwards;
+}
+
+section h3 {
+    color: #4a5568;
+    font-size: clamp(1.3em, 3vw, 1.6em);
+    margin: 30px 0 20px 0;
+    font-weight: 600;
+    border-left: 4px solid #667eea;
+    padding-left: 15px;
+}
+
+section p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #4a5568;
+    font-size: 1.05em;
+}
+
+section p strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+@keyframes slideIn {
+    from { width: 0; }
+    to { width: 100px; }
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation delays for sections */
+section:nth-of-type(1) { animation-delay: 0.2s; }
+section:nth-of-type(2) { animation-delay: 0.4s; }
+section:nth-of-type(3) { animation-delay: 0.6s; }
+section:nth-of-type(4) { animation-delay: 0.8s; }
+section:nth-of-type(5) { animation-delay: 1.0s; }
+
+/* Blockquote Styles */
+blockquote {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 6px solid #667eea;
+    margin: 25px 0;
+    color: #4a5568;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+blockquote::before {
+    content: "";
+    font-size: 6em;
+    color: rgba(102, 126, 234, 0.08);
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    z-index: 0;
+    font-family: serif;
+    line-height: 1;
+}
+
+blockquote p {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+blockquote strong {
+    color: #5a67d8;
+    font-weight: 700;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+}
+
+th, td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+    background-color: #e3f2fd;
+    transition: background-color 0.3s ease;
+}
+
+tbody td {
+    font-size: 0.95em;
+    color: #4a5568;
+}
+
+tbody td:first-child {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+/* List Styles for Definisi ML Section */
+#definisi-ml ul {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0;
+}
+
+#definisi-ml ul li {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 20px 25px;
+    margin: 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    font-weight: 500;
+    color: #4a5568;
+    border-left: 5px solid #667eea;
+    position: relative;
+    overflow: hidden;
+}
+
+#definisi-ml ul li::before {
+    content: '✨';
+    margin-right: 15px;
+    font-size: 1.3em;
+    flex-shrink: 0;
+    line-height: 1.2;
+}
+
+#definisi-ml ul li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.05), transparent);
+    transition: left 0.6s ease;
+}
+
+#definisi-ml ul li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-left-color: #764ba2;
+}
+
+#definisi-ml ul li:hover::after {
+    left: 100%;
+}
+
+#definisi-ml ul li strong {
+    color: #2d3748;
+    font-weight: 700;
+}
+
+/* Machine Learning Types Grid */
+.ml-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.ml-type-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    border-top: 6px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.ml-type-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.ml-type-card:hover::before {
+    left: 100%;
+}
+
+.ml-type-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.ml-type-card h4 {
+    font-size: 1.9em;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.ml-type-card h4::before {
+    margin-right: 12px;
+    font-size: 1.3em;
+}
+
+.ml-type-card > p {
+    font-size: 1em;
+    color: #4a5568;
+    margin-bottom: 25px;
+    line-height: 1.8;
+    font-weight: 500;
+}
+
+.ml-type-card h5 {
+    font-size: 1.3em;
+    color: #2d3748;
+    margin: 25px 0 15px 0;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+    font-weight: 600;
+    position: relative;
+}
+
+.ml-type-card h5::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.ml-type-card ul {
+    padding-left: 0;
+    margin: 15px 0;
+    list-style: none;
+}
+
+.ml-type-card ul li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+    color: #4a5568;
+    position: relative;
+    padding-left: 20px;
+}
+
+.ml-type-card ul li::before {
+    content: '•';
+    color: #667eea;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    font-size: 1.2em;
+}
+
+.ml-type-card ul ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.ml-type-card ul ul li::before {
+    content: '◦';
+    color: #764ba2;
+}
+
+.ml-type-card ul li strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* Specific Card Colors */
+.ml-type-card.supervised {
+    border-top-color: #48bb78;
+}
+.ml-type-card.supervised h4 {
+    color: #2f855a;
+}
+
+.ml-type-card.unsupervised {
+    border-top-color: #ed8936;
+}
+.ml-type-card.unsupervised h4 {
+    color: #c05621;
+}
+
+.ml-type-card.reinforcement {
+    border-top-color: #f56565;
+}
+.ml-type-card.reinforcement h4 {
+    color: #c53030;
+}
+
+/* Semi-Supervised and Self-Supervised Learning Sections */
+#jenis-ml h3 {
+    margin-top: 50px;
+    font-size: 1.8em;
+    color: #2d3748;
+    border-left: 5px solid #667eea;
+    padding-left: 20px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 20px 20px 20px 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus States */
+nav a:focus,
+.toc ol li a:focus {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    nav div:last-child {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    main {
+        margin: 10px;
+        border-radius: 15px;
+    }
+
+    section {
+        padding: 30px 20px;
+    }
+
+    article > header {
+        padding: 40px 20px;
+    }
+
+    .toc {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .ml-types-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .ml-type-card {
+        padding: 25px;
+    }
+
+    .ml-type-card h4 {
+        font-size: 1.6em;
+    }
+
+    table {
+        font-size: 0.9em;
+        overflow-x: auto;
+        display: block;
+    }
+
+    th, td {
+        padding: 12px 15px;
+    }
+
+    #definisi-ml ul li {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px 20px;
+    }
+
+    #definisi-ml ul li::before {
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    nav h1 {
+        font-size: 1.5em;
+    }
+
+    nav a {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    section {
+        padding: 20px 15px;
+    }
+
+    article > header {
+        padding: 30px 15px;
+    }
+
+    .toc {
+        margin: 5px;
+        padding: 15px;
+    }
+
+    .ml-type-card {
+        padding: 20px;
+    }
+
+    blockquote {
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    /* Mobile table styles */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        padding-bottom: 10px;
+        white-space: normal;
+    }
+
+    td:before {
+        content: attr(data-label) ": ";
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #667eea;
+    }
+
+    /* Tambahkan data-label untuk setiap td di HTML */
+    td:nth-child(1):before { content: "Aspek: "; }
+    td:nth-child(2):before { content: "Programming Tradisional: "; }
+    td:nth-child(3):before { content: "Machine Learning: "; }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    header {
+        background: white;
+        box-shadow: none;
+        position: static;
+    }
+
+    main {
+        box-shadow: none;
+        background: white;
+        margin: 0;
+    }
+
+    article > header {
+        background: white;
+        color: black;
+    }
+
+    .ml-type-card,
+    blockquote,
+    #definisi-ml ul li {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    nav a::before,
+    .ml-type-card::before,
+    #definisi-ml ul li::after {
+        display: none;
+    }
+
+    .ml-types-grid {
+        display: block;
+    }
+
+    .ml-type-card {
+        margin-bottom: 30px;
+        border: 1px solid #ccc;
+    }
+}
