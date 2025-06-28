@@ -4,84 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Machine Learning - ThinkEd</title>
-    <link href="../asset/css/machine_learning.css" rel="stylesheet" />
+    <link href="../asset/css/machine_learning.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <div>
-                <h1>ThinkEd</h1>
-            </div>
-            <div>
-                <a href="../page/home.html">Home</a>
-                <a href="../page/materi.html">Materi</a>
-                <a href="../page/quiz.html">Quiz Test</a>
-                <a href="#">Tentang Kami</a>
-            </div>
-        </nav>
-    </header>
 
-    <main>
+    <!-- Navbar Start -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">ThinkEd</div>
+        </div>
+        <div class="nav-center">
+            <a href="../page/home.html">Home</a>
+            <a href="../page/materi.html">Materi</a>
+            <a href="../page/quiz.html">Quiz Test</a>
+            <a href="#">Tentang Kami</a>
+ 
+        </div>
+        <div class="nav-right"></div>
+    </nav>
+    <!-- Navbar End -->
+
+<main>
         <article>
             <header>
                 <h1>Machine Learning</h1>
-                <p><em>Panduan Lengkap untuk Memahami dan Menguasai Machine Learning</em></p>
+                <p>Panduan Lengkap untuk Memahami dan Menguasai Machine Learning</p>
             </header>
 
-            <section class="toc">
-                <h2>Daftar Isi</h2>
-                <ol>
-                    <li><a href="#definisi-ml">Definisi Machine Learning</a></li>
-                    <li><a href="#jenis-ml">Jenis-jenis Machine Learning</a></li>
-                    <li><a href="#algoritma-ml">Algoritma Machine Learning</a></li>
-                    <li><a href="#proses-ml">Proses Machine Learning</a></li>
-                    <li><a href="#tantangan-ml">Tantangan dalam Machine Learning</a></li>
-                    <li><a href="#evaluasi-ml">Evaluasi Model</a></li>
-                </ol>
+            <!-- Menu Utama -->
+            <section id="menu-utama">
+                <h2>Pilih Materi yang Ingin Dipelajari:</h2>
+                <ul>
+                    <li><a href="#" onclick="showSection('definisi')" role="button">Definisi Machine Learning</a></li>
+                    <li><a href="#" onclick="showSection('jenis')" role="button">Jenis-jenis Machine Learning</a></li>
+                    <li><a href="#" onclick="showSection('proses')" role="button">Proses Machine Learning</a></li>
+                    <li><a href="#" onclick="showSection('algoritma')" role="button">Algoritma Populer</a></li>
+                    <li><a href="#" onclick="showSection('evaluasi')" role="button">Evaluasi Model</a></li>
+                    <li><a href="#" onclick="showSection('aplikasi')" role="button">Aplikasi Machine Learning</a></li>
+                    <li><a href="#" onclick="showSection('masa-depan')" role="button">Masa Depan Machine Learning</a></li>
+                </ul>
             </section>
-
-            <section id="definisi-ml">
-                <h2>1. Definisi Machine Learning</h2>
+            
+            <!-- Section Definisi -->
+            <section id="definisi" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Definisi Machine Learning</h2>
                 
                 <h3>Apa itu Machine Learning?</h3>
                 <p>Machine Learning (ML) adalah cabang dari Artificial Intelligence yang memungkinkan komputer untuk belajar dan meningkatkan performanya dalam menjalankan tugas tertentu tanpa diprogram secara eksplisit. ML menggunakan algoritma statistik untuk mengidentifikasi pola dalam data dan membuat prediksi atau keputusan berdasarkan pola tersebut.</p>
 
                 <h3>Definisi dari Para Ahli</h3>
-                <blockquote style="background: #f7fafc; padding: 1.5rem; border-radius: 10px; border-left: 5px solid #667eea; margin: 1rem 0;">
+                <blockquote>
                     <p><strong>Arthur Samuel (1959):</strong> "Machine Learning adalah bidang studi yang memberikan komputer kemampuan untuk belajar tanpa diprogram secara eksplisit."</p>
                 </blockquote>
                 
-                <blockquote style="background: #f7fafc; padding: 1.5rem; border-radius: 10px; border-left: 5px solid #667eea; margin: 1rem 0;">
+                <blockquote>
                     <p><strong>Tom Mitchell (1997):</strong> "Program komputer dikatakan belajar dari pengalaman E terhadap tugas T dan ukuran performa P, jika performa P dalam tugas T meningkat dengan pengalaman E."</p>
                 </blockquote>
 
                 <h3>Perbedaan ML dengan Programming Tradisional</h3>
                 <table>
-                    <tr>
-                        <th>Aspek</th>
-                        <th>Programming Tradisional</th>
-                        <th>Machine Learning</th>
-                    </tr>
-                    <tr>
-                        <td>Input</td>
-                        <td>Data + Program</td>
-                        <td>Data + Output yang Diinginkan</td>
-                    </tr>
-                    <tr>
-                        <td>Output</td>
-                        <td>Hasil Eksekusi</td>
-                        <td>Program/Model</td>
-                    </tr>
-                    <tr>
-                        <td>Pendekatan</td>
-                        <td>Rule-based, Deterministik</td>
-                        <td>Pattern-based, Probabilistik</td>
-                    </tr>
-                    <tr>
-                        <td>Adaptasi</td>
-                        <td>Manual update code</td>
-                        <td>Otomatis dari data baru</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Aspek</th>
+                            <th>Programming Tradisional</th>
+                            <th>Machine Learning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Input</td>
+                            <td>Data + Program</td>
+                            <td>Data + Output yang Diinginkan</td>
+                        </tr>
+                        <tr>
+                            <td>Output</td>
+                            <td>Hasil Eksekusi</td>
+                            <td>Program/Model</td>
+                        </tr>
+                        <tr>
+                            <td>Pendekatan</td>
+                            <td>Rule-based, Deterministik</td>
+                            <td>Pattern-based, Probabilistik</td>
+                        </tr>
+                        <tr>
+                            <td>Adaptasi</td>
+                            <td>Manual update code</td>
+                            <td>Otomatis dari data baru</td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <h3>Konsep Dasar Machine Learning</h3>
@@ -96,8 +107,10 @@
                 </ul>
             </section>
 
-            <section id="jenis-ml">
-                <h2>2. Jenis-jenis Machine Learning</h2>
+            <!-- Section Jenis -->
+            <section id="jenis" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Jenis-jenis Machine Learning</h2>
                 
                 <div class="ml-types-grid">
                     <div class="ml-type-card supervised">
@@ -212,3 +225,154 @@
                 <h3>Self-Supervised Learning</h3>
                 <p>Model belajar dengan membuat label dari data itu sendiri. Contoh: prediksi kata selanjutnya dalam kalimat (seperti pada model bahasa GPT).</p>
             </section>
+
+            <!-- Section Proses -->
+            <section id="proses" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Proses Machine Learning</h2>
+                
+                <h3>Tahapan Umum Machine Learning</h3>
+                <ol>
+                    <li><strong>Problem Definition:</strong> Mendefinisikan masalah yang ingin diselesaikan</li>
+                    <li><strong>Data Collection:</strong> Mengumpulkan data yang relevan</li>
+                    <li><strong>Data Preprocessing:</strong> Membersihkan dan mempersiapkan data</li>
+                    <li><strong>Feature Engineering:</strong> Memilih dan membuat fitur yang tepat</li>
+                    <li><strong>Model Selection:</strong> Memilih algoritma yang sesuai</li>
+                    <li><strong>Training:</strong> Melatih model dengan data training</li>
+                    <li><strong>Evaluation:</strong> Mengevaluasi performa model</li>
+                    <li><strong>Deployment:</strong> Menerapkan model ke production</li>
+                </ol>
+            </section>
+
+            <!-- Section Algoritma -->
+            <section id="algoritma" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Algoritma Populer</h2>
+                
+                <h3>Supervised Learning Algorithms</h3>
+                <ul>
+                    <li><strong>Linear Regression:</strong> Untuk prediksi nilai kontinu</li>
+                    <li><strong>Logistic Regression:</strong> Untuk klasifikasi binary</li>
+                    <li><strong>Decision Trees:</strong> Model berbasis aturan</li>
+                    <li><strong>Random Forest:</strong> Ensemble dari decision trees</li>
+                    <li><strong>Support Vector Machines:</strong> Untuk klasifikasi dan regresi</li>
+                    <li><strong>Neural Networks:</strong> Model terinspirasi otak manusia</li>
+                </ul>
+
+                <h3>Unsupervised Learning Algorithms</h3>
+                <ul>
+                    <li><strong>K-Means:</strong> Clustering berbasis centroid</li>
+                    <li><strong>Hierarchical Clustering:</strong> Clustering bertingkat</li>
+                    <li><strong>PCA:</strong> Dimensionality reduction</li>
+                    <li><strong>DBSCAN:</strong> Density-based clustering</li>
+                </ul>
+            </section>
+
+            <!-- Section Evaluasi -->
+            <section id="evaluasi" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Evaluasi Model</h2>
+                
+                <h3>Metrik untuk Classification</h3>
+                <ul>
+                    <li><strong>Accuracy:</strong> Persentase prediksi yang benar</li>
+                    <li><strong>Precision:</strong> Dari prediksi positif, berapa yang benar</li>
+                    <li><strong>Recall:</strong> Dari kelas positif aktual, berapa yang terdeteksi</li>
+                    <li><strong>F1-Score:</strong> Harmonic mean dari precision dan recall</li>
+                </ul>
+
+                <h3>Metrik untuk Regression</h3>
+                <ul>
+                    <li><strong>Mean Absolute Error (MAE):</strong> Rata-rata error absolut</li>
+                    <li><strong>Mean Squared Error (MSE):</strong> Rata-rata error kuadrat</li>
+                    <li><strong>Root Mean Squared Error (RMSE):</strong> Akar dari MSE</li>
+                    <li><strong>R-squared:</strong> Proporsi varians yang dijelaskan</li>
+                </ul>
+            </section>
+
+            <!-- Section Aplikasi -->
+            <section id="aplikasi" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Aplikasi Machine Learning</h2>
+                <h3>Industri dan Aplikasi</h3>
+                <ul>
+                    <li><strong>Healthcare:</strong> Diagnosis medis, drug discovery</li>
+                    <li><strong>Finance:</strong> Fraud detection, algorithmic trading</li>
+                    <li><strong>Technology:</strong> Search engines, recommendation systems</li>
+                    <li><strong>Transportation:</strong> Autonomous vehicles, route optimization</li>
+                    <li><strong>Retail:</strong> Price optimization, inventory management</li>
+                    <li><strong>Entertainment:</strong> Content recommendation, game AI</li>
+                </ul>
+            </section>
+
+            <!-- Section Masa Depan -->
+            <section id="masa-depan" class="content-section">
+                <button class="back-button" onclick="showMenu()" aria-label="Kembali ke Menu">← Kembali ke Menu</button>
+                <h2>Masa Depan Machine Learning</h2>
+                
+                <h3>Tren Emerging</h3>
+                <ul>
+                    <li><strong>AutoML:</strong> Otomatisasi proses machine learning</li>
+                    <li><strong>Explainable AI:</strong> AI yang dapat dijelaskan</li>
+                    <li><strong>Edge AI:</strong> ML di device lokal</li>
+                    <li><strong>Quantum Machine Learning:</strong> ML dengan quantum computing</li>
+                    <li><strong>Federated Learning:</strong> Training tanpa centralized data</li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = ['definisi', 'jenis', 'proses', 'algoritma', 'evaluasi', 'aplikasi', 'masa-depan'];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Hide menu
+            document.getElementById('menu-utama').style.display = 'none';
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                // Scroll to top of section
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function showMenu() {
+            // Hide all sections
+            const sections = ['definisi', 'jenis', 'proses', 'algoritma', 'evaluasi', 'aplikasi', 'masa-depan'];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Show menu
+            document.getElementById('menu-utama').style.display = 'block';
+            
+            // Scroll to menu
+            document.getElementById('menu-utama').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                showMenu();
+            }
+        });
+
+        // Initialize - show menu on load
+        document.addEventListener('DOMContentLoaded', function() {
+            showMenu();
+        });
+    </script>
+</body>
+</html>
