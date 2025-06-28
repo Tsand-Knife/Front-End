@@ -1,49 +1,39 @@
-/* Reset dan Base Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Navigation */
+.navbar {
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    line-height: 1.6;
-    color: #333;
+.navbar a::before
+
+.nav-left, .nav-center, .nav-right {
+  flex: 1;
 }
 
-/* Header Styles */
-header {
-    background: rgb(255, 255, 255);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+.nav-left {
+  display: flex;
+  align-items: center;
 }
 
-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-}
-
-nav h1 {
-    color: #667eea;
-    font-size: 2em;
-    font-weight: bold;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-nav div:last-child {
+.nav-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,38 +44,86 @@ nav div:last-child {
   gap: 50px;
 }
 
-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 3s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       .logo::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 10px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
 
-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    transition: all 0.3s ease;
-    z-index: -1;
-}
+        .logo:hover::after {
+            opacity: 1;
+        }
 
-nav a:hover::before {
-    left: 0;
-}
+            .nav-center a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-nav a:hover {
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
+        .nav-center a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-center a:hover::before {
+            left: 0;
+        }
+
+        .nav-center a:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        } */
+
+        .navbar .navbar-nav a {
+            color: #ffffff;
+            margin-left: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 20;
+            position: center;
+        }
 
 /* Main Content */
 main {
@@ -141,88 +179,185 @@ article > header p {
     font-style: italic;
 }
 
-/* Table of Contents */
-section:first-of-type {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+/* Menu Utama Styling */
+#menu-utama {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 15px;
-    margin: 20px;
-    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
-section:first-of-type h2 {
-    font-size: 30px;
-    color: #667eea;
+#menu-utama::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+#menu-utama h2 {
+    color: white;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
 }
 
-section:first-of-type ol {
-    max-width: 900px;
-    margin: 0 auto;
+#menu-utama ul {
     list-style: none;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
 }
 
-section:first-of-type ol li {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+#menu-utama li {
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+#menu-utama li:hover {
+    transform: translateY(-2px);
+}
+
+#menu-utama a {
+    display: block;
+    padding: 1.5rem 1.5rem;
+    margin-top: auto;
+    background: #fffffff2;
+    color: #333;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     border: 2px solid transparent;
 }
 
-section:first-of-type ol li::before {
-    content: counter(list-item, decimal-leading-zero);
+#menu-utama a::before {
+    content: '';
     position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 45px;
-    height: 45px;
-    background: linear-gradient(135deg, #8B7ED8, #B794F6);
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+#menu-utama a:hover::before {
+    left: 100%;
+}
+
+#menu-utama a:hover {
+    background: white;
+    color: #667eea;
+    border-color: #667eea;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    transform: scale(1.02);
+}
+
+#menu-utama a:active {
+    transform: scale(0.98);
+}
+
+/* Animasi masuk untuk setiap item menu */
+#menu-utama li:nth-child(1) { animation: slideInFromLeft 0.6s ease 0.1s both; }
+#menu-utama li:nth-child(2) { animation: slideInFromLeft 0.6s ease 0.2s both; }
+#menu-utama li:nth-child(3) { animation: slideInFromLeft 0.6s ease 0.3s both; }
+#menu-utama li:nth-child(4) { animation: slideInFromLeft 0.6s ease 0.4s both; }
+#menu-utama li:nth-child(5) { animation: slideInFromLeft 0.6s ease 0.5s both; }
+#menu-utama li:nth-child(6) { animation: slideInFromLeft 0.6s ease 0.6s both; }
+#menu-utama li:nth-child(7) { animation: slideInFromLeft 0.6s ease 0.7s both; }
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #menu-utama {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    #menu-utama h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    #menu-utama ul {
+        grid-template-columns: 1fr;
+    }
+    
+    #menu-utama a {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #menu-utama {
+        margin: 0.5rem;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    
+    #menu-utama h2 {
+        font-size: 1.3rem;
+    }
+    
+    #menu-utama ul {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    #menu-utama a {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+/* Back Button Styles */
+button[onclick="showMenu()"], .back-to-menu-top {
+    background: linear-gradient(135deg, #e17055, #d63031);
     color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.1em;
-    box-shadow: 0 4px 15px rgba(139, 126, 216, 0.3);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(214, 48, 49, 0.3);
 }
 
-section:first-of-type ol li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: rgba(139, 126, 216, 0.3);
-}
-
-section:first-of-type ol li:hover::before {
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 6px 20px rgba(139, 126, 216, 0.4);
-}
-
-section:first-of-type ol li a {
-    display: block;
-    padding: 20px 20px 20px 85px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-    font-size: 1.1em;
-    position: relative;
-    z-index: 1;
-}
-
-section:first-of-type ol li a:hover {
-    color: #8B7ED8;
-}
-@keyframes slideIn {
-    from { width: 0; }
-    to { width: 80px; }
+button[onclick="showMenu()"]:hover, .back-to-menu-top:hover {
+    background: linear-gradient(135deg, #d63031, #b71c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(214, 48, 49, 0.4);
 }
 
 /* General Section Styles */
@@ -241,22 +376,11 @@ section:last-child {
 section h2 {
     position: relative;
     color: #333f;
+    text-align: center;
     font-size: clamp(1.8em, 4vw, 2.5em);
     margin-bottom: 30px;
     padding-bottom: 15px;
     font-weight: 600;
-}
-
-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 4px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    border-radius: 2px;
-    animation: slideIn 1s ease forwards;
 }
 
 section h3 {
@@ -758,7 +882,6 @@ nav a:focus,
         color: #667eea;
     }
 
-    /* Tambahkan data-label untuk setiap td di HTML */
     td:nth-child(1):before { content: "Aspek: "; }
     td:nth-child(2):before { content: "Programming Tradisional: "; }
     td:nth-child(3):before { content: "Machine Learning: "; }
