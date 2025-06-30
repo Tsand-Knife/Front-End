@@ -14,6 +14,7 @@
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Main Styling -->
     <link href="../assets/css/argon-dashboard-tailwind.css?v=1.0.1" rel="stylesheet" />
+
   </head>
 
   <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
@@ -149,100 +150,136 @@
         </div>
       </nav>
 
-      <div class="w-full px-6 py-6 mx-auto">
         <!-- table 1 -->
+        <div class="w-full px-6 py-6 mx-auto">
+          <!-- Quiz Management Table -->
+          <div class="w-full bg-white text-gray-800 p-6 rounded-lg shadow-xl">
+            <div class="flex justify-between mb-4">
+              <h1 class="text-xl font-bold">Manajemen Soal Quiz</h1>
+              <button onclick="openAddModal()" class="bg-blue-500 text-white px-4 py-2 rounded">+ Tambah Soal</button>
+            </div>
 
-        <body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen p-6 text-gray-800">
-  <div class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-lg">
-    <h1 class="text-3xl font-bold text-center text-gray-900 mb-4">Edit Soal Quiz</h1>
-    <p class="text-center mb-10 text-gray-500">Tambah, ubah, atau hapus soal-soal pada quiz Anda</p>
+            <table class="w-full table-auto bg-white border border-gray-200 rounded overflow-hidden shadow">
+              <thead class="bg-gray-100 text-gray-700 text-xs font-bold uppercase">
+                <tr>
+                  <th class="px-4 py-2">No</th>
+                  <th class="px-4 py-2">Pertanyaan</th>
+                  <th class="px-4 py-2">A</th>
+                  <th class="px-4 py-2">B</th>
+                  <th class="px-4 py-2">C</th>
+                  <th class="px-4 py-2">D</th>
+                  <th class="px-4 py-2">Kunci</th>
+                  <th class="px-4 py-2">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="quizTable" class="text-gray-800 text-sm divide-y divide-gray-200">
+                <!-- Soal akan dirender oleh JS -->
+              </tbody>
+            </table>
+          </div>
 
-    <div class="space-y-6">
-      <!-- Soal -->
-      <div class="p-4 border rounded-lg shadow-md bg-gray-50">
-        <label class="block mb-2 font-medium text-gray-700">Pertanyaan</label>
-        <input type="text" placeholder="Masukkan pertanyaan" class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-          <div>
-            <label class="block mb-1 text-sm">Pilihan A</label>
-            <input type="text" placeholder="Jawaban A" class="w-full px-3 py-2 border rounded" />
-          </div>
-          <div>
-            <label class="block mb-1 text-sm">Pilihan B</label>
-            <input type="text" placeholder="Jawaban B" class="w-full px-3 py-2 border rounded" />
-          </div>
-          <div>
-            <label class="block mb-1 text-sm">Pilihan C</label>
-            <input type="text" placeholder="Jawaban C" class="w-full px-3 py-2 border rounded" />
-          </div>
-          <div>
-            <label class="block mb-1 text-sm">Pilihan D</label>
-            <input type="text" placeholder="Jawaban D" class="w-full px-3 py-2 border rounded" />
+        <!-- Modal Tambah/Edit -->
+          <div id="quizModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white text-gray-800 p-6 rounded-lg w-full max-w-xl shadow-lg">
+              <h2 class="text-lg font-bold mb-4" id="modalTitle">Tambah Soal</h2>
+              <form id="quizForm">
+                <input type="hidden" id="editIndex">
+                <label class="block mb-2 font-semibold">Pertanyaan
+                  <textarea id="question" class="w-full border border-gray-300 px-3 py-2 rounded mb-2" required></textarea>
+                </label>
+                <div class="grid grid-cols-2 gap-4 mb-2">
+                  <input id="optionA" placeholder="Jawaban A" class="border border-gray-300 px-3 py-2 rounded" required>
+                  <input id="optionB" placeholder="Jawaban B" class="border border-gray-300 px-3 py-2 rounded" required>
+                  <input id="optionC" placeholder="Jawaban C" class="border border-gray-300 px-3 py-2 rounded" required>
+                  <input id="optionD" placeholder="Jawaban D" class="border border-gray-300 px-3 py-2 rounded" required>
+                </div>
+                <label class="block mb-2 font-semibold">Kunci Jawaban (A/B/C/D)
+                  <input id="answerKey" class="w-full border border-gray-300 px-3 py-2 rounded" maxlength="1" required>
+                </label>
+                <div class="text-right mt-4">
+                  <button type="button" onclick="closeModal()" class="mr-2 px-4 py-2 bg-gray-300 text-gray-800 rounded">Batal</button>
+                  <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
 
-        <div class="mt-4">
-          <label class="block mb-1 text-sm font-medium text-gray-700">Jawaban Benar</label>
-          <select class="w-32 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-          </select>
-        </div>
+        <script>
+          let quizzes = [];
 
-        <div class="flex space-x-2 mt-4">
-          <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Simpan</button>
-          <button class="px-4 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500">Edit</button>
-          <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Hapus</button>
-        </div>
-      </div>
-    </div>
+          function renderTable() {
+            const tbody = document.getElementById("quizTable");
+            tbody.innerHTML = "";
+            quizzes.forEach((quiz, index) => {
+              tbody.innerHTML += `
+                <tr>
+                  <td class="px-4 py-2">${index + 1}</td>
+                  <td class="px-4 py-2">${quiz.question}</td>
+                  <td class="px-4 py-2">${quiz.optionA}</td>
+                  <td class="px-4 py-2">${quiz.optionB}</td>
+                  <td class="px-4 py-2">${quiz.optionC}</td>
+                  <td class="px-4 py-2">${quiz.optionD}</td>
+                  <td class="px-4 py-2 font-bold text-blue-600">${quiz.answerKey}</td>
+                  <td class="px-4 py-2 space-x-2">
+                    <button onclick="editQuiz(${index})" class="text-yellow-500">✏️</button>
+                    <button onclick="deleteQuiz(${index})" class="text-red-600">🗑️</button>
+                  </td>
+                </tr>`;
+            });
+          }
 
-    <div class="mt-6 text-right">
-      <button class="px-6 py-3 bg-green-500 text-white font-semibold rounded hover:bg-green-600">+ Tambah Soal</button>
-    </div>
-  </div>
-</body>
+          function openAddModal() {
+            document.getElementById("quizForm").reset();
+            document.getElementById("editIndex").value = "";
+            document.getElementById("modalTitle").innerText = "Tambah Soal";
+            document.getElementById("quizModal").classList.remove("hidden");
+          }
 
-        <!-- card 2 -->
+          function closeModal() {
+            document.getElementById("quizModal").classList.add("hidden");
+          }
 
-<body class="bg-gray-100 min-h-screen p-6">
-  <div class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-lg">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">📋 Daftar Soal Quiz</h1>
+          function editQuiz(index) {
+            const quiz = quizzes[index];
+            document.getElementById("editIndex").value = index;
+            document.getElementById("question").value = quiz.question;
+            document.getElementById("optionA").value = quiz.optionA;
+            document.getElementById("optionB").value = quiz.optionB;
+            document.getElementById("optionC").value = quiz.optionC;
+            document.getElementById("optionD").value = quiz.optionD;
+            document.getElementById("answerKey").value = quiz.answerKey;
+            document.getElementById("modalTitle").innerText = "Edit Soal";
+            document.getElementById("quizModal").classList.remove("hidden");
+          }
 
-    <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow">
-      <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
-        <tr>
-          <th class="px-4 py-3 text-left">No</th>
-          <th class="px-4 py-3 text-left">Pertanyaan</th>
-          <th class="px-4 py-3 text-left">Jawaban A</th>
-          <th class="px-4 py-3 text-left">Jawaban B</th>
-          <th class="px-4 py-3 text-left">Jawaban C</th>
-          <th class="px-4 py-3 text-left">Jawaban D</th>
-          <th class="px-4 py-3 text-left">Kunci</th>
-        </tr>
-      </thead>
-      <tbody class="text-gray-700 text-sm divide-y divide-gray-200">
-        <tr class="hover:bg-gray-50">
-          <td class="px-4 py-2">1</td>
-          <td class="px-4 py-2">Apa kepanjangan dari AI?</td>
-          <td class="px-4 py-2">Artificial Intelligence</td>
-          <td class="px-4 py-2">Automated Intelligence</td>
-          <td class="px-4 py-2">Advanced Intelligence</td>
-          <td class="px-4 py-2">Applied Intelligence</td>
-          <td class="px-4 py-2 font-bold text-blue-600">A</td>
-        </tr>
-        <!-- Tambahkan baris lainnya dari backend -->
-      </tbody>
-    </table>
+          function deleteQuiz(index) {
+            if (confirm("Yakin ingin menghapus soal ini?")) {
+              quizzes.splice(index, 1);
+              renderTable();
+            }
+          }
 
-    <div class="mt-6 text-right">
-      <a href="../pages/test.html" class="inline-block bg-blue-500 text-white px-5 py-2 rounded hover:bg-blue-600">Edit Quiz</a>
-    </div>
-  </div>
-</body>
+          document.getElementById("quizForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const quiz = {
+              question: document.getElementById("question").value,
+              optionA: document.getElementById("optionA").value,
+              optionB: document.getElementById("optionB").value,
+              optionC: document.getElementById("optionC").value,
+              optionD: document.getElementById("optionD").value,
+              answerKey: document.getElementById("answerKey").value.toUpperCase()
+            };
+            const editIndex = document.getElementById("editIndex").value;
+            if (editIndex === "") {
+              quizzes.push(quiz);
+            } else {
+              quizzes[editIndex] = quiz;
+            }
+            closeModal();
+            renderTable();
+          });
+        </script>
 
         <footer class="pt-4">
           <div class="w-full px-6 mx-auto">
@@ -273,67 +310,68 @@
         </footer>
       </div>
     </main>
-    <div fixed-plugin>
-      <a fixed-plugin-button class="fixed px-4 py-2 text-xl bg-white shadow-lg cursor-pointer bottom-8 right-8 z-990 rounded-circle text-slate-700">
-        <i class="py-2 pointer-events-none fa fa-cog"> </i>
-      </a>
-      <!-- -right-90 in loc de 0-->
-      <div fixed-plugin-card class="z-sticky backdrop-blur-2xl backdrop-saturate-200 dark:bg-slate-850/80 shadow-3xl w-90 ease -right-90 fixed top-0 left-auto flex h-full min-w-0 flex-col break-words rounded-none border-0 bg-white/80 bg-clip-border px-2.5 duration-200">
-        <div class="px-6 pt-4 pb-0 mb-0 border-b-0 rounded-t-2xl">
-          <div class="float-left">
-            <h5 class="mt-4 mb-0 dark:text-white">ThinkEd Configurator</h5>
-            <p class="dark:text-white dark:opacity-80">See our dashboard options.</p>
-          </div>
-          <div class="float-right mt-6">
-            <button fixed-plugin-close-button class="inline-block p-0 mb-4 text-sm font-bold leading-normal text-center uppercase align-middle transition-all ease-in bg-transparent border-0 rounded-lg shadow-none cursor-pointer hover:-translate-y-px tracking-tight-rem bg-150 bg-x-25 active:opacity-85 dark:text-white text-slate-700">
-              <i class="fa fa-close"></i>
-            </button>
-          </div>
-          <!-- End Toggle Button -->
-        </div>
-        <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-        <div class="flex-auto p-6 pt-0 overflow-auto sm:pt-4">
-          <!-- Sidebar Backgrounds -->
-          <div>
-            <h6 class="mb-0 dark:text-white">Sidebar Colors</h6>
-          </div>
-          <a href="javascript:void(0)">
-            <div class="my-2 text-left" sidenav-colors>
-              <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-blue-500 to-violet-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-slate-700 text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" active-color data-color="blue" onclick="sidebarColor(this)"></span>
-              <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-zinc-800 to-zinc-700 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="gray" onclick="sidebarColor(this)"></span>
-              <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-blue-700 to-cyan-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="cyan" onclick="sidebarColor(this)"></span>
-              <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-emerald-500 to-teal-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="emerald" onclick="sidebarColor(this)"></span>
-              <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-orange-500 to-yellow-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="orange" onclick="sidebarColor(this)"></span>
-              <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-red-600 to-orange-600 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="red" onclick="sidebarColor(this)"></span>
-            </div>
+        <div fixed-plugin>
+          <a fixed-plugin-button class="fixed px-4 py-2 text-xl bg-white shadow-lg cursor-pointer bottom-8 right-8 z-990 rounded-circle text-slate-700">
+            <i class="py-2 pointer-events-none fa fa-cog"> </i>
           </a>
-          <!-- Sidenav Type -->
-          <div class="mt-4">
-            <h6 class="mb-0 dark:text-white">Sidenav Type</h6>
-            <p class="text-sm leading-normal dark:text-white dark:opacity-80">Choose between 2 different sidenav types.</p>
-          </div>
-          <div class="flex">
-            <button transparent-style-btn class="inline-block w-full px-4 py-2.5 mb-2 font-bold leading-normal text-center text-white capitalize align-middle transition-all bg-blue-500 border border-transparent border-solid rounded-lg cursor-pointer text-sm xl-max:cursor-not-allowed xl-max:opacity-65 xl-max:pointer-events-none xl-max:bg-gradient-to-tl xl-max:from-blue-500 xl-max:to-violet-500 xl-max:text-white xl-max:border-0 hover:-translate-y-px dark:cursor-not-allowed dark:opacity-65 dark:pointer-events-none dark:bg-gradient-to-tl dark:from-blue-500 dark:to-violet-500 dark:text-white dark:border-0 hover:shadow-xs active:opacity-85 ease-in tracking-tight-rem shadow-md bg-150 bg-x-25 bg-gradient-to-tl from-blue-500 to-violet-500 hover:border-blue-500" data-class="bg-transparent" active-style>White</button>
-            <button white-style-btn class="inline-block w-full px-4 py-2.5 mb-2 ml-2 font-bold leading-normal text-center text-blue-500 capitalize align-middle transition-all bg-transparent border border-blue-500 border-solid rounded-lg cursor-pointer text-sm xl-max:cursor-not-allowed xl-max:opacity-65 xl-max:pointer-events-none xl-max:bg-gradient-to-tl xl-max:from-blue-500 xl-max:to-violet-500 xl-max:text-white xl-max:border-0 hover:-translate-y-px dark:cursor-not-allowed dark:opacity-65 dark:pointer-events-none dark:bg-gradient-to-tl dark:from-blue-500 dark:to-violet-500 dark:text-white dark:border-0 hover:shadow-xs active:opacity-85 ease-in tracking-tight-rem shadow-md bg-150 bg-x-25 bg-none hover:border-blue-500" data-class="bg-white">Dark</button>
-          </div>
-          <p class="block mt-2 text-sm leading-normal dark:text-white dark:opacity-80 xl:hidden">You can change the sidenav type just on desktop view.</p>
-          <!-- Navbar Fixed -->
-          <div class="flex my-4">
-            <h6 class="mb-0 dark:text-white">Navbar Fixed</h6>
-            <div class="block pl-0 ml-auto min-h-6">
-              <input navbarFixed class="rounded-10 duration-250 ease-in-out after:rounded-circle after:shadow-2xl after:duration-250 checked:after:translate-x-5.3 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-blue-500/95 checked:bg-blue-500/95 checked:bg-none checked:bg-right" type="checkbox" />
+          <!-- -right-90 in loc de 0-->
+          <div fixed-plugin-card class="z-sticky backdrop-blur-2xl backdrop-saturate-200 dark:bg-slate-850/80 shadow-3xl w-90 ease -right-90 fixed top-0 left-auto flex h-full min-w-0 flex-col break-words rounded-none border-0 bg-white/80 bg-clip-border px-2.5 duration-200">
+            <div class="px-6 pt-4 pb-0 mb-0 border-b-0 rounded-t-2xl">
+              <div class="float-left">
+                <h5 class="mt-4 mb-0 dark:text-white">ThinkEd Configurator</h5>
+                <p class="dark:text-white dark:opacity-80">See our dashboard options.</p>
+              </div>
+              <div class="float-right mt-6">
+                <button fixed-plugin-close-button class="inline-block p-0 mb-4 text-sm font-bold leading-normal text-center uppercase align-middle transition-all ease-in bg-transparent border-0 rounded-lg shadow-none cursor-pointer hover:-translate-y-px tracking-tight-rem bg-150 bg-x-25 active:opacity-85 dark:text-white text-slate-700">
+                  <i class="fa fa-close"></i>
+                </button>
+              </div>
+              <!-- End Toggle Button -->
             </div>
-          </div>
-          <hr class="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent " />
-          <div class="flex mt-2 mb-12">
-            <h6 class="mb-0 dark:text-white">Light / Dark</h6>
-            <div class="block pl-0 ml-auto min-h-6">
-              <input dark-toggle class="rounded-10 duration-250 ease-in-out after:rounded-circle after:shadow-2xl after:duration-250 checked:after:translate-x-5.3 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-blue-500/95 checked:bg-blue-500/95 checked:bg-none checked:bg-right" type="checkbox" />
+            <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+            <div class="flex-auto p-6 pt-0 overflow-auto sm:pt-4">
+              <!-- Sidebar Backgrounds -->
+              <div>
+                <h6 class="mb-0 dark:text-white">Sidebar Colors</h6>
+              </div>
+              <a href="javascript:void(0)">
+                <div class="my-2 text-left" sidenav-colors>
+                  <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-blue-500 to-violet-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-slate-700 text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" active-color data-color="blue" onclick="sidebarColor(this)"></span>
+                  <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-zinc-800 to-zinc-700 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="gray" onclick="sidebarColor(this)"></span>
+                  <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-blue-700 to-cyan-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="cyan" onclick="sidebarColor(this)"></span>
+                  <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-emerald-500 to-teal-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="emerald" onclick="sidebarColor(this)"></span>
+                  <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-orange-500 to-yellow-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="orange" onclick="sidebarColor(this)"></span>
+                  <span class="py-2.2 text-xs rounded-circle h-5.6 mr-1.25 w-5.6 ease-in-out bg-gradient-to-tl from-red-600 to-orange-600 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700" data-color="red" onclick="sidebarColor(this)"></span>
+                </div>
+              </a>
+              <!-- Sidenav Type -->
+              <div class="mt-4">
+                <h6 class="mb-0 dark:text-white">Sidenav Type</h6>
+                <p class="text-sm leading-normal dark:text-white dark:opacity-80">Choose between 2 different sidenav types.</p>
+              </div>
+              <div class="flex">
+                <button transparent-style-btn class="inline-block w-full px-4 py-2.5 mb-2 font-bold leading-normal text-center text-white capitalize align-middle transition-all bg-blue-500 border border-transparent border-solid rounded-lg cursor-pointer text-sm xl-max:cursor-not-allowed xl-max:opacity-65 xl-max:pointer-events-none xl-max:bg-gradient-to-tl xl-max:from-blue-500 xl-max:to-violet-500 xl-max:text-white xl-max:border-0 hover:-translate-y-px dark:cursor-not-allowed dark:opacity-65 dark:pointer-events-none dark:bg-gradient-to-tl dark:from-blue-500 dark:to-violet-500 dark:text-white dark:border-0 hover:shadow-xs active:opacity-85 ease-in tracking-tight-rem shadow-md bg-150 bg-x-25 bg-gradient-to-tl from-blue-500 to-violet-500 hover:border-blue-500" data-class="bg-transparent" active-style>White</button>
+                <button white-style-btn class="inline-block w-full px-4 py-2.5 mb-2 ml-2 font-bold leading-normal text-center text-blue-500 capitalize align-middle transition-all bg-transparent border border-blue-500 border-solid rounded-lg cursor-pointer text-sm xl-max:cursor-not-allowed xl-max:opacity-65 xl-max:pointer-events-none xl-max:bg-gradient-to-tl xl-max:from-blue-500 xl-max:to-violet-500 xl-max:text-white xl-max:border-0 hover:-translate-y-px dark:cursor-not-allowed dark:opacity-65 dark:pointer-events-none dark:bg-gradient-to-tl dark:from-blue-500 dark:to-violet-500 dark:text-white dark:border-0 hover:shadow-xs active:opacity-85 ease-in tracking-tight-rem shadow-md bg-150 bg-x-25 bg-none hover:border-blue-500" data-class="bg-white">Dark</button>
+              </div>
+              <p class="block mt-2 text-sm leading-normal dark:text-white dark:opacity-80 xl:hidden">You can change the sidenav type just on desktop view.</p>
+              <!-- Navbar Fixed -->
+              <div class="flex my-4">
+                <h6 class="mb-0 dark:text-white">Navbar Fixed</h6>
+                <div class="block pl-0 ml-auto min-h-6">
+                  <input navbarFixed class="rounded-10 duration-250 ease-in-out after:rounded-circle after:shadow-2xl after:duration-250 checked:after:translate-x-5.3 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-blue-500/95 checked:bg-blue-500/95 checked:bg-none checked:bg-right" type="checkbox" />
+                </div>
+              </div>
+              <hr class="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent " />
+              <div class="flex mt-2 mb-12">
+                <h6 class="mb-0 dark:text-white">Light / Dark</h6>
+                <div class="block pl-0 ml-auto min-h-6">
+                  <input dark-toggle class="rounded-10 duration-250 ease-in-out after:rounded-circle after:shadow-2xl after:duration-250 checked:after:translate-x-5.3 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-blue-500/95 checked:bg-blue-500/95 checked:bg-none checked:bg-right" type="checkbox" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
   </body>
   <!-- plugin for scrollbar  -->
   <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
