@@ -23,13 +23,13 @@ import QuizNlpPage from './components/QuizNlppage.jsx';
 
 // --- Firebase Configuration ---
 const firebaseConfig = {
-    apiKey: "AIzaSyDRrjPh-ZDZueS50RWj4OCL_W7hGq0Dmb8",
-    authDomain: "thinked-9004f.firebaseapp.com",
-    projectId: "thinked-9004f",
-    storageBucket: "thinked-9004f.firebasestorage.app",
-    messagingSenderId: "10637562537",
-    appId: "1:10637562537:web:b12f68891efee30e984fb8",
-    measurementId: "G-QMGMY05251"
+    apiKey: "key",
+    authDomain: "auth",
+    projectId: "id",
+    storageBucket: "bucket",
+    messagingSenderId: "idsend",
+    appId: "idapp",
+    measurementId: "idmeasure"
   }
 
 // Initialize Firebase
